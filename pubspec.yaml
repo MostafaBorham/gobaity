@@ -1,0 +1,74 @@
+name: yallabaity
+description: A new Flutter project.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.6 <3.0.0"
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.5
+  pin_code_fields:
+  flutter_launcher_icons:
+  flutter_native_splash: ^2.2.14
+  animated_splash_screen:
+  flutter_svg:
+  carousel_slider:
+  flutter_rating_bar:
+  google_maps_flutter:
+  get:
+  dropdown_button2:
+  flutter_layout_grid:
+  shimmer_animation:
+  http:
+  multi_image_picker2:
+  flutter_bloc:
+  dio:
+  flutter_offline:
+  change_app_package_name: ^1.1.0
+  equatable:
+  internet_connection_checker:
+  dartz:  #to use either concept
+  shared_preferences:
+  sqflite:
+  get_it:  # is used for dependency injection
+  image_picker:
+  file_picker:
+  cached_network_image:
+  geolocator:
+  geocoding:
+  animations:
+  auto_size_text: ^3.0.0
+  shimmer:
+  toast:
+  fluttertoast:
+  lottie:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/svg/
+    - assets/lottie/
+  fonts:
+    - family: Cocon
+      fonts:
+        - asset: assets/fonts/Cocon-Regular-Font.otf
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 300
