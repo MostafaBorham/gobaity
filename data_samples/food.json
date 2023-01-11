@@ -1,0 +1,85 @@
+
+{
+  "message": "",
+  "state": true,
+  "data": {
+    "sizes": [
+    {
+      "foodsSizesId": 2,
+      "price": 15,
+      "sizeDescription": null,
+      "sizeName": "Small",
+      "foodId": 2
+    }
+    ],
+    "food": {
+      "serial": 1,
+      "foodId": 2,
+      "foodName": "عرض كلاسيك باندل\r\n\r\n",
+      "price": 1,
+      "description": "1 وجبة وابر لحم وسط و 1 وجبة تشيكن رويال وسط\r\n\r\n",
+      "preparationTime": 30,
+      "userId": 1,
+      "isApproved": true,
+      "isDelete": false,
+      "isActive": true,
+      "userName": "Amr",
+      "latitude": "29.962383",
+      "longitude": "30.969883",
+      "imagePath": "/Uploads/Users/1\\233f6a6e-a902-4d19-913b-10195a6bc734.webp",
+      "rate": 3,
+      "rateCount": 1,
+      "mostPopular": 1,
+      "mostWatched": 1,
+      "isLike": false
+    },"images": [
+      {
+        "foodsImagesId": 1,
+        "imagePath": "/Uploads/Users/1\\233f6a6e-a902-4d19-913b-10195a6bc734.webp",
+        "foodId": 2,
+        "food": null
+      }],"categories": [
+      {
+        "categoryId": 1,
+        "categoryName": "dessert",
+        "categoryDescription": null,
+        "backgroundColor": "#eee",
+        "imagePath": "/Uploads/Categorys/233f6a6e-a902-4d19-913b-10195a6bc734.webp"
+      }],"reviews": [
+      {
+        "userRatingId": 1,
+        "foodId": 2,
+        "userId": 1,
+        "rating": 3,
+        "description": "The policy change in 2016 allowed troops to transition gender while serving. It also set standards for medical care and prevented service members from being discharged or denied re-enlistment based on their gender identity.",
+        "userName": "Amr",
+        "ratingDate": "7 Day"
+      }
+    ],
+    "similarFoods": [
+      {
+        "serial": 20,
+        "foodId": 22,
+        "foodName": "Food932",
+        "price": 350,
+        "description": "food description",
+        "preparationTime": 15,
+        "userId": 1,
+        "isApproved": true,
+        "isDelete": false,
+        "isActive": true,
+        "userName": "Amr",
+        "latitude": "29.962383",
+        "longitude": "30.969883",
+        "imagePath": "\\Uploads\\Foods\\22\\iaydfiyy.pes.webp",
+        "rate": null,
+        "rateCount": 0,
+        "mostPopular": 0,
+        "mostWatched": 0,
+        "isLike": false
+      }]
+
+  }
+
+
+}

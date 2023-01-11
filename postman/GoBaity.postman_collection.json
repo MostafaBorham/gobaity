@@ -1,0 +1,1565 @@
+{
+	"info": {
+		"_postman_id": "8e127b73-1dce-42ee-8307-8cc0953c7e1b",
+		"name": "GoBaity",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11951069"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "UserName",
+									"value": "CCs",
+									"description": "requird",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "123456",
+									"description": "requird",
+									"type": "text"
+								},
+								{
+									"key": "Gender",
+									"value": "true",
+									"description": "Man=true;woman=false;requird",
+									"type": "text"
+								},
+								{
+									"key": "Phone",
+									"value": "01587233481",
+									"description": "requird",
+									"type": "text"
+								},
+								{
+									"key": "Image",
+									"description": "optional",
+									"type": "file",
+									"src": "/E:/images for programs/banars/1.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/Users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SetUserToProvider",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Latitude",
+									"value": "29.9696295",
+									"description": "optional",
+									"type": "text"
+								},
+								{
+									"key": "Longitude",
+									"value": "31.0053332",
+									"description": "optional",
+									"type": "text"
+								},
+								{
+									"key": "NationalIdcardFace",
+									"description": "optional",
+									"type": "file",
+									"src": "/C:/Users/owner/OneDrive/Desktop/a1.jpg"
+								},
+								{
+									"key": "NationalIdcardBack",
+									"description": "optional",
+									"type": "file",
+									"src": "/C:/Users/owner/OneDrive/Desktop/a5.jpg"
+								},
+								{
+									"key": "Address",
+									"value": "cairo",
+									"type": "text"
+								},
+								{
+									"key": "GovernorateId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "Location",
+									"value": "cairo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/SetUserToProvider/4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"SetUserToProvider",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "UserName",
+									"value": "Auxs",
+									"description": "requird",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "123456",
+									"description": "requird",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "Gender",
+									"value": "true",
+									"description": "Man=true;woman=false;requird",
+									"type": "text"
+								},
+								{
+									"key": "Phone",
+									"value": "01019522376",
+									"description": "Not Allow To Update",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "Image",
+									"description": "optional",
+									"type": "file",
+									"src": "/E:/images for programs/banars/1.jpg"
+								},
+								{
+									"key": "Latitude",
+									"value": "29.9696291",
+									"description": "optional",
+									"type": "text"
+								},
+								{
+									"key": "Longitude",
+									"value": "31.0053332",
+									"description": "optional",
+									"type": "text"
+								},
+								{
+									"key": "NationalIdcardFace",
+									"description": "optional",
+									"type": "file",
+									"src": "/E:/images for programs/banars/3.jpg",
+									"disabled": true
+								},
+								{
+									"key": "NationalIdcardBack",
+									"description": "optional",
+									"type": "file",
+									"src": "/E:/images for programs/banars/zarafa.jpg",
+									"disabled": true
+								},
+								{
+									"key": "Location",
+									"value": "Location",
+									"type": "text"
+								},
+								{
+									"key": "Address",
+									"value": "cairo",
+									"type": "text"
+								},
+								{
+									"key": "GovernorateId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Users/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ApproveProvider",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/ApproveProvider/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"ApproveProvider",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\":\"01019522376\",\r\n    \"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/Login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"Login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddRating",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UserRatingId\":0,\r\n    \"FoodId\":2,\r\n    \"Rating\":2,\r\n    \"Description\":\"notes\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/1/Rating",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"Rating"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateRating",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UserRatingId\":10,\r\n    \"FoodId\":2,\r\n    \"Rating\":2,\r\n    \"Description\":\"notes\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/1/Rating",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"Rating"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Like",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Users/1/Like/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"Like",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateLatLng",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"Latitude\": 29.9696291 ,\r\n    \"Longitude\": 31.0053332 \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/UpdateLatLng/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"UpdateLatLng",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SendOTP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Users/SendOTP/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"SendOTP",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CheckOTP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Users/CheckOTP/1?code=1234",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"CheckOTP",
+								"1"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "1234"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Users?page=0&size=30",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ChangePassword",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"OldPassword\":\"123456\",\r\n    \"NewPassword\":\"500500\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/ChangePassword/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"ChangePassword",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Governorates",
+			"item": [
+				{
+					"name": "GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Governorates",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Governorates"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Foods",
+			"item": [
+				{
+					"name": "GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Foods?page=0&size=30&categoryId=-1&userId=-1&priceFrom=-1&priceTo=-1&foodName=شاورما فراخ سوري صاج&order=&latitude=&longitude=",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Foods"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"description": "default value is: 0"
+								},
+								{
+									"key": "size",
+									"value": "30",
+									"description": "default value is: 30"
+								},
+								{
+									"key": "categoryId",
+									"value": "-1",
+									"description": "default value is: -1"
+								},
+								{
+									"key": "userId",
+									"value": "-1",
+									"description": "default value is: -1"
+								},
+								{
+									"key": "priceFrom",
+									"value": "-1",
+									"description": "default value is: -1"
+								},
+								{
+									"key": "priceTo",
+									"value": "-1",
+									"description": "default value is: -1"
+								},
+								{
+									"key": "foodName",
+									"value": "شاورما فراخ سوري صاج"
+								},
+								{
+									"key": "order",
+									"value": "",
+									"description": "price,rate,mostPopular,mostWatched,preparationTime"
+								},
+								{
+									"key": "latitude",
+									"value": ""
+								},
+								{
+									"key": "longitude",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "FoodName",
+									"value": "ساندوتش فول بالصلصة",
+									"type": "text"
+								},
+								{
+									"key": "Price",
+									"value": "120",
+									"type": "text"
+								},
+								{
+									"key": "Description",
+									"value": "فول، صلصة، طماطم، فلفل رومي، بصل",
+									"type": "text"
+								},
+								{
+									"key": "PreparationTime",
+									"value": "30",
+									"type": "text"
+								},
+								{
+									"key": "UserId",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/C:/Users/owner/OneDrive/Desktop/ec69b579-29b7-42be-aeca-35c26fd367bd.jpg"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/C:/Users/owner/OneDrive/Desktop/ee71a23d-c86c-4060-9348-73ffd4227828.jpg"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/C:/Users/owner/OneDrive/Desktop/650ac795-9145-48c9-9451-e58dc27811b6.jpg"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/C:/Users/owner/OneDrive/Desktop/23641ef1-c6ed-4851-b32c-f5f163404854.jpg"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/C:/Users/owner/OneDrive/Desktop/834828b2-497c-451c-a4df-8a55bd0ce6eb.jpg"
+								},
+								{
+									"key": "Sizes",
+									"value": "[ \n{\n        \"SizeId\":1,\n        \"Price\":\"30\",\n        \"SizeDescription\":\"very large\"\n    }, {\n        \"SizeId\":2,\n        \"Price\":\"50\",\n        \"SizeDescription\":\"very beautiful\"\n    }, {\n        \"SizeId\":3,\n        \"Price\":\"90\",\n        \"SizeDescription\":\"very nice\"\n    }]",
+									"type": "text"
+								},
+								{
+									"key": "Categories",
+									"value": "[1,4]",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/Foods",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Foods"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "FoodName",
+									"value": "New Food X7",
+									"type": "text"
+								},
+								{
+									"key": "Price",
+									"value": "350",
+									"type": "text"
+								},
+								{
+									"key": "Description",
+									"value": "food description",
+									"type": "text"
+								},
+								{
+									"key": "PreparationTime",
+									"value": "30",
+									"type": "text"
+								},
+								{
+									"key": "UserId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "Sizes",
+									"value": "[ \n{\n        \"SizeId\":1,\n        \"Price\":\"220\",\n        \"SizeDescription\":\"very large\"\n    }, {\n        \"SizeId\":2,\n        \"Price\":\"520\",\n        \"SizeDescription\":\"very beautiful\"\n    }]",
+									"type": "text"
+								},
+								{
+									"key": "Categories",
+									"value": "[1,3]",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/E:/images for programs/banars/2.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/Foods/211",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Foods",
+								"211"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Foods/51",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Foods",
+								"51"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rating",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Foods/2/Rating",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Foods",
+								"2",
+								"Rating"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HomePage",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Foods/HomePage?page=0&size=30&categoryId=-1&userId=-1&priceFrom=-1&priceTo=-1&foodName=&order=&latitude=&longitude=",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Foods",
+								"HomePage"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "30"
+								},
+								{
+									"key": "categoryId",
+									"value": "-1"
+								},
+								{
+									"key": "userId",
+									"value": "-1"
+								},
+								{
+									"key": "priceFrom",
+									"value": "-1"
+								},
+								{
+									"key": "priceTo",
+									"value": "-1"
+								},
+								{
+									"key": "foodName",
+									"value": ""
+								},
+								{
+									"key": "order",
+									"value": ""
+								},
+								{
+									"key": "latitude",
+									"value": ""
+								},
+								{
+									"key": "longitude",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LastSeen",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Foods/LastSeen?userId=1&page=0&size=30&categoryId=-1&priceFrom=-1&priceTo=-1&foodName=&order=&latitude=&longitude=",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Foods",
+								"LastSeen"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1",
+									"description": "Requird"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "30"
+								},
+								{
+									"key": "categoryId",
+									"value": "-1"
+								},
+								{
+									"key": "priceFrom",
+									"value": "-1"
+								},
+								{
+									"key": "priceTo",
+									"value": "-1"
+								},
+								{
+									"key": "foodName",
+									"value": ""
+								},
+								{
+									"key": "order",
+									"value": ""
+								},
+								{
+									"key": "latitude",
+									"value": ""
+								},
+								{
+									"key": "longitude",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ByProvider",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Foods/Provider?providerId=2&page=0&size=30&categoryId=-1&userId=-1&priceFrom=-1&priceTo=-1&foodName=&order=&latitude=&longitude=",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Foods",
+								"Provider"
+							],
+							"query": [
+								{
+									"key": "providerId",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "30"
+								},
+								{
+									"key": "categoryId",
+									"value": "-1"
+								},
+								{
+									"key": "userId",
+									"value": "-1"
+								},
+								{
+									"key": "priceFrom",
+									"value": "-1"
+								},
+								{
+									"key": "priceTo",
+									"value": "-1"
+								},
+								{
+									"key": "foodName",
+									"value": ""
+								},
+								{
+									"key": "order",
+									"value": ""
+								},
+								{
+									"key": "latitude",
+									"value": ""
+								},
+								{
+									"key": "longitude",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sizes",
+			"item": [
+				{
+					"name": "GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Sizes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Sizes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "GET",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "ar",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "basic QW1yOjEyMzQ1Ng==",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/Categories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUsedByProvider",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Categories/GetUsedByProvider/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Categories",
+								"GetUsedByProvider",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ads",
+			"item": [
+				{
+					"name": "GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Ads",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Ads"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Baskets",
+			"item": [
+				{
+					"name": "GetByUserId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Users/1/Baskets?page=0&size=30",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"Baskets"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FoodId\": 3,\r\n    \"BasketSizes\": [\r\n        {\r\n            \"FoodsSizesId\": 5,\r\n            \"Quantity\": 1\r\n        },\r\n        {\r\n            \"FoodsSizesId\": 6,\r\n            \"Quantity\": 4\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/1/Baskets",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"Baskets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FoodsSizesId\":153,\r\n    \"BasketId\":17\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/1/Baskets",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"Baskets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Increase",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FoodsSizesId\":153,\r\n    \"BasketId\":17\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/1/Baskets/Increase",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"Baskets",
+								"Increase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Decrease",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FoodsSizesId\":2,\r\n    \"BasketId\":14\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/1/Baskets/Decrease",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"Baskets",
+								"Decrease"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Users/1/Baskets/Count",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"Baskets",
+								"Count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Total",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Users/1/Baskets/Total",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"Baskets",
+								"Total"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST_Single",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FoodId\": 52,\r\n    \"FoodsSizesId\": 244,\r\n    \"Quantity\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/1/Baskets/Single",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"Baskets",
+								"Single"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"PaymentMethodsId\": 1,\r\n    \"UsersAddressId\": 1,\r\n    \"HandDate\": null,\r\n    \"IsSchedule\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/1/Orders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"Orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Orders/5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Orders",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"PaymentMethodsId\": 1,\r\n    \"UsersAddressId\": 1,\r\n    \"HandDate\": null,\r\n    \"IsSchedule\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/1/Orders/7",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"Orders",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetByUserId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Users/1/Orders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"Orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Users/1/Orders/7",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"Orders",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UsersAddreses",
+			"item": [
+				{
+					"name": "POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usersAddressName\": \"Home\",\r\n    \"address\": \"cairo\",\r\n    \"apartmentNo\": 1,\r\n    \"buildingNo\": 2,\r\n    \"street\": \"3\",\r\n    \"floor\": 4,\r\n    \"latitude\": 5,\r\n    \"longitude\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/1/UsersAddreses",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"UsersAddreses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usersAddressName\": \"Home\",\r\n    \"address\": \"cairo\",\r\n    \"apartmentNo\": 1,\r\n    \"buildingNo\": 2,\r\n    \"street\": \"3\",\r\n    \"floor\": 4,\r\n    \"latitude\": 5,\r\n    \"longitude\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/1/UsersAddreses/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"UsersAddreses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/Users/1/UsersAddreses/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"UsersAddreses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Users/1/UsersAddreses/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"UsersAddreses",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Users/1/UsersAddreses",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"1",
+								"UsersAddreses"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,27 @@
+{
+  "message": "",
+  "state": true,
+  "data": [
+    {
+      "sizeId": 1,
+      "sizeName": "Small",
+      "isActive": true,
+      "isDelete": false,
+      "foodsSizes": []
+    },
+    {
+      "sizeId": 2,
+      "sizeName": "Medium",
+      "isActive": true,
+      "isDelete": false,
+      "foodsSizes": []
+    },
+    {
+      "sizeId": 3,
+      "sizeName": "Large",
+      "isActive": true,
+      "isDelete": false,
+      "foodsSizes": []
+    }
+  ]
+}
