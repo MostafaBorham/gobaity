@@ -6,7 +6,7 @@ import 'package:yallabaity/domain/entities/requests_entites/food_entity.dart';
 import 'package:yallabaity/injection_container.dart';
 import 'package:yallabaity/network_layer/models/data_models/cook_model.dart';
 import 'package:yallabaity/network_layer/models/data_models/food_model.dart';
-import 'package:yallabaity/presentation/manager/cubit_food_manager/cubit_food_manager_cubit.dart';
+
 import 'package:yallabaity/presentation/manager/cubit_foods/foods_manager_cubit.dart';
 import 'package:yallabaity/presentation/resources/assets_manager.dart';
 import 'package:yallabaity/presentation/resources/colors_manager.dart';
@@ -25,7 +25,7 @@ import '../resources/routes_manager.dart';
 
 class CookProfileScreen extends StatefulWidget {
 
-  CookProfileScreen({Key? key, this.cook}) : super(key: key);
+  const CookProfileScreen({Key? key, this.cook}) : super(key: key);
   final CookModel? cook;
 
   @override

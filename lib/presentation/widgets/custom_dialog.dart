@@ -28,7 +28,7 @@ class CustomDialog extends StatelessWidget {
                 height: AppHeight.s43 * Constants.height,
               ),
               Image.asset(
-                AssetsManager.loadingLogo,
+                AssetsManager.gobaityIcon,
                 height: AppHeight.s38 * Constants.height,
                 width: AppWidth.s85 * Constants.width,
               ),

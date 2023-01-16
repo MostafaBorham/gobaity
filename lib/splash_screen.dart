@@ -4,7 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yallabaity/application/app_prefs.dart';
-import 'package:yallabaity/presentation/manager/bloc_user/cubit_user.dart';
+import 'package:yallabaity/presentation/manager/cubit_user_manager/cubit_user.dart';
 import 'package:yallabaity/presentation/resources/assets_manager.dart';
 import 'package:yallabaity/presentation/resources/colors_manager.dart';
 import 'package:yallabaity/presentation/resources/constants_manager.dart';
@@ -89,7 +89,8 @@ class SplashScreen extends StatelessWidget {
             Timer(
               const Duration(seconds: 4),
               () {
-                Navigator.of(context).pushReplacementNamed(Routes.getStartedRoute);
+                Navigator.of(context).pushReplacementNamed(Routes.homeRoute);
+                debugPrint('user is not registered');
               },
             );
           }
@@ -97,7 +98,9 @@ class SplashScreen extends StatelessWidget {
             Timer(
               const Duration(seconds: 4),
               () {
-                Navigator.of(context).pushReplacementNamed(Routes.homeRoute);
+                Navigator.of(context).pushReplacementNamed(Routes.getStartedRoute);
+                debugPrint('user is logged in');
+
               },
             );
           }

@@ -31,19 +31,17 @@ import 'package:yallabaity/network_layer/repositories/ads_repo_impl.dart';
 
 import 'package:yallabaity/network_layer/repositories/categories_repo_impl.dart';
 import 'package:yallabaity/network_layer/repositories/cooks_repo_impl.dart';
-import 'package:yallabaity/network_layer/repositories/food_repo_impl.dart';
+import 'package:yallabaity/network_layer/repositories/foods_repo_impl.dart';
 import 'package:yallabaity/network_layer/repositories/sizes_repo_impl.dart';
 import 'package:yallabaity/network_layer/repositories/user_repo_impl.dart';
 import 'package:yallabaity/network_layer/services/network_services.dart';
-import 'package:yallabaity/presentation/manager/bloc_categories/categories_bloc.dart';
-import 'package:yallabaity/presentation/manager/bloc_food/food_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:yallabaity/presentation/manager/bloc_sizes/sizes_bloc.dart';
-import 'package:yallabaity/presentation/manager/bloc_user/cubit_user.dart';
 import 'package:yallabaity/presentation/manager/cubit_cart_manager/cubit_cart_manager_cubit.dart';
 import 'package:yallabaity/presentation/manager/cubit_cooks_managers/cubit_cooks_manager_cubit.dart';
-import 'package:yallabaity/presentation/manager/cubit_food_manager/cubit_food_manager_cubit.dart';
+import 'package:yallabaity/presentation/manager/cubit_food_operation_manager/cubit_food_operation_manager_cubit.dart';
 import 'package:yallabaity/presentation/manager/cubit_foods/foods_manager_cubit.dart';
+import 'package:yallabaity/presentation/manager/cubit_user_manager/cubit_user.dart';
 
 import 'network_layer/data_sources/ads_local_datasource.dart';
 import 'network_layer/data_sources/ads_remote_datasource.dart';
@@ -64,15 +62,13 @@ Future<void> init() async {
 
   /********************* bloc ******************************/
   /*                                       categories cubit                                           */
-  getIt.registerFactory<CategoriesBloc>(() => CategoriesBloc(categoriesUseCases: getIt()));
 
   getIt.registerFactory<CategoriesManagerCubit>(() => CategoriesManagerCubit(categoriesUseCases: getIt()));
-  getIt.registerFactory<FoodBloc>(() => FoodBloc(foodUseCases: getIt()));
   getIt.registerFactory<SizesBloc>(() => SizesBloc(sizesUseCases: getIt()));
   /*                                       foods cubit                                              */
   getIt.registerFactory<FoodsManagerCubit>(() => FoodsManagerCubit(foodUseCases: getIt()));
   /*                                       foods cubit                                              */
-  getIt.registerFactory<FoodManagerCubit>(() => FoodManagerCubit(foodsUseCase: getIt()));
+  getIt.registerFactory<FoodOperationManagerCubit>(() => FoodOperationManagerCubit(foodsUseCase: getIt()));
   /*                                       user cubit                                               */
   getIt.registerFactory<UserCubit>(() => UserCubit(userUseCase: getIt(), appPrefs: getIt()));
   /*                                       ads cubit                                                */

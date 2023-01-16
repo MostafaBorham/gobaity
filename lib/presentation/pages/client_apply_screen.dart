@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yallabaity/application/app_failures/app_errors.dart';
 import 'package:yallabaity/network_layer/models/data_models/user_model.dart';
-import 'package:yallabaity/presentation/manager/bloc_user/cubit_user.dart';
 import 'package:yallabaity/presentation/manager/cubit_errors/errors_manager_cubit.dart';
 import 'package:yallabaity/presentation/pages/verification_screen.dart';
 import 'package:yallabaity/presentation/resources/colors_manager.dart';
