@@ -1,13 +1,14 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yallabaity/presentation/manager/bloc_user/cubit_user.dart';
 import 'package:yallabaity/presentation/resources/assets_manager.dart';
 import 'package:yallabaity/presentation/resources/colors_manager.dart';
 import 'package:yallabaity/presentation/resources/constants_manager.dart';
 import 'package:yallabaity/presentation/resources/routes_manager.dart';
 import 'package:yallabaity/presentation/resources/values_manager.dart';
 import 'package:yallabaity/presentation/widgets/custom_button.dart';
+
+import '../manager/cubit_user_manager/cubit_user.dart';
 
 class GetStartedScreen extends StatefulWidget {
   const GetStartedScreen({Key? key}) : super(key: key);

@@ -11,11 +11,9 @@ import 'package:yallabaity/domain/entities/requests_entites/category_entity.dart
 import 'package:yallabaity/network_layer/models/data_models/category_model.dart';
 import 'package:yallabaity/network_layer/models/data_models/food_post_model.dart';
 import 'package:yallabaity/network_layer/models/data_models/size_model.dart';
+import 'package:yallabaity/network_layer/models/data_models/user_model.dart';
 import 'package:yallabaity/network_layer/models/item_model.dart';
-import 'package:yallabaity/presentation/manager/bloc_categories/categories_bloc.dart';
-import 'package:yallabaity/presentation/manager/bloc_food/food_bloc.dart';
 import 'package:yallabaity/presentation/manager/bloc_sizes/sizes_bloc.dart';
-import 'package:yallabaity/presentation/manager/bloc_user/cubit_user.dart';
 import 'package:yallabaity/presentation/manager/cubit_categories/categories_manager_cubit.dart';
 import 'package:yallabaity/presentation/manager/cubit_errors/errors_manager_cubit.dart';
 import 'package:yallabaity/presentation/manager/cubit_food_sizes_listview/food_sizes_cubit.dart';
@@ -38,6 +36,8 @@ import 'package:yallabaity/presentation/widgets/sections.dart';
 import 'package:yallabaity/presentation/widgets/size_item.dart';
 
 import '../../application/app_failures/app_errors.dart';
+import '../manager/cubit_food_operation_manager/cubit_food_operation_manager_cubit.dart';
+import '../manager/cubit_user_manager/cubit_user.dart';
 import '../resources/assets_manager.dart';
 
 class AddFoodScreen extends StatelessWidget {
@@ -76,144 +76,145 @@ class AddFoodScreen extends StatelessWidget {
             BlocProvider(create: (context) => ErrorsManagerCubit()),
             BlocProvider(create: (context) => ImagePickerCubit()),
           ],
-          child: BlocConsumer<FoodBloc, FoodBlocState>(
-            listener: (context, state) async {
-              debugPrint(state.runtimeType.toString());
-              if (state is AddOrUpdateOrDeleteFoodStartingState) {
-                _showDialog(context, "Adding Food");
-              }
-              if (state is AddOrUpdateOrDeleteFoodsFailureState) {
-                debugPrint(state.message);
+          child: BlocBuilder<ErrorsManagerCubit, ErrorsManagerState>(
+            builder: (context, errorState) => SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                //set widgets vertically
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: Constants.margin),
+                    child: Column(//set widgets vertically
+                        children: [
+                      Form(
+                        key: formKey,
+                        child: Column(
+                          //set widgets vertically
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: AppHeight.s20 * Constants.height),
+                            const SectionName(title: AppStrings.info),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: AppWidth.s10 * Constants.width),
+                              child: _buildTitle(context),
+                            ),
+                            SizedBox(
+                              height: AppHeight.s20 * Constants.height,
+                            ),
+                            _buildImages(context),
+                            _addFoodTextButton(context),
+                            AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 500),
+                              child: ErrorsManagerCubit.contains(context, AppErrors.images)
+                                  ? Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        ErrorsManagerCubit.getErrorMessage(context, AppErrors.images),
+                                        style: getMediumStyle(
+                                          fontSize: AppWidth.s14 * Constants.width,
+                                          color: ColorsManager.red,
+                                        ),
+                                      ),
+                                    )
+                                  : null,
+                            ),
+                            SizedBox(
+                              height: AppHeight.s20 * Constants.height,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: AppWidth.s10 * Constants.width),
+                              child: _buildDescription(context),
+                            ),
+                            SizedBox(
+                              height: AppHeight.s20 * Constants.height,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: AppWidth.s10 * Constants.width,
+                              ),
+                              child: _buildCategories(context),
+                            ),
+                            BlocBuilder<ErrorsManagerCubit, ErrorsManagerState>(
+                              builder: (context, state) => CustomErrorWidget(
+                                visible: ErrorsManagerCubit.contains(context, AppErrors.tags),
+                                message: ErrorsManagerCubit.getErrorMessage(
+                                  context,
+                                  AppErrors.tags,
+                                ).capitalizeFirst,
+                              ),
+                            ),
+                            SizedBox(
+                              height: AppHeight.s30 * Constants.height,
+                            ),
+                            const Divider(
+                              color: ColorsManager.platinum,
+                              thickness: 7,
+                            ),
+                            SizedBox(
+                              height: AppHeight.s23 * Constants.height,
+                            ),
+                            const SectionName(title: AppStrings.sizes),
+                            SizedBox(
+                              height: AppHeight.s24 * Constants.height,
+                            ),
+                            _buildSizes(),
+                            SizedBox(
+                              height: AppHeight.s30 * Constants.height,
+                            ),
+                            const Divider(
+                              color: ColorsManager.platinum,
+                              thickness: 7,
+                            ),
+                            SizedBox(
+                              height: AppHeight.s20 * Constants.height,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: AppWidth.s10 * Constants.width,
+                              ),
+                              child: SizedBox(
+                                width: double.maxFinite,
+                                child: BlocConsumer<FoodOperationManagerCubit, FoodOperationManagerState>(
+                                  listener: (context, state) {
+                                    debugPrint(state.runtimeType.toString());
+                                    if (state is AddOrUpdateOrDeleteFoodStartingState) {
+                                      _showDialog(context, "Adding Food");
+                                    }
+                                    if (state is AddOrUpdateOrDeleteFoodsFailureState) {
+                                      debugPrint(state.message);
 
-                Navigator.pop(dialogContext!);
-                _showDialog(context, state.message);
-              }
-              if (state is AddOrUpdateOrDeleteFoodStateSuccessState) {
-                debugPrint(state.message);
+                                      Navigator.pop(dialogContext!);
+                                      _showDialog(context, state.message);
+                                    }
+                                    if (state is AddOrUpdateOrDeleteFoodStateSuccessState) {
+                                      debugPrint(state.message);
 
-                Navigator.pop(dialogContext!);
-                _showDialog(context, state.message);
-              }
-            },
-            builder: (context, foodBlocState) {
-              return BlocBuilder<ErrorsManagerCubit, ErrorsManagerState>(
-                builder: (context, errorState) => SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Column(
-                    //set widgets vertically
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: Constants.margin),
-                        child: Column(//set widgets vertically
-                            children: [
-                          Form(
-                            key: formKey,
-                            child: Column(
-                              //set widgets vertically
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(height: AppHeight.s20 * Constants.height),
-                                const SectionName(title: AppStrings.info),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: AppWidth.s10 * Constants.width),
-                                  child: _buildTitle(context),
-                                ),
-                                SizedBox(
-                                  height: AppHeight.s20 * Constants.height,
-                                ),
-                                _buildImages(context),
-                                _addFoodTextButton(context),
-                                AnimatedSwitcher(
-                                  duration: const Duration(milliseconds: 500),
-                                  child: ErrorsManagerCubit.contains(context, AppErrors.images)
-                                      ? Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            ErrorsManagerCubit.getErrorMessage(context, AppErrors.images),
-                                            style: getMediumStyle(
-                                              fontSize: AppWidth.s14 * Constants.width,
-                                              color: ColorsManager.red,
-                                            ),
-                                          ),
-                                        )
-                                      : null,
-                                ),
-                                SizedBox(
-                                  height: AppHeight.s20 * Constants.height,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: AppWidth.s10 * Constants.width),
-                                  child: _buildDescription(context),
-                                ),
-                                SizedBox(
-                                  height: AppHeight.s20 * Constants.height,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: AppWidth.s10 * Constants.width,
-                                  ),
-                                  child: _buildCategories(context),
-                                ),
-                                BlocBuilder<ErrorsManagerCubit, ErrorsManagerState>(
-                                  builder: (context, state) => CustomErrorWidget(
-                                    visible: ErrorsManagerCubit.contains(context, AppErrors.tags),
-                                    message: ErrorsManagerCubit.getErrorMessage(
-                                      context,
-                                      AppErrors.tags,
-                                    ).capitalizeFirst,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: AppHeight.s30 * Constants.height,
-                                ),
-                                const Divider(
-                                  color: ColorsManager.platinum,
-                                  thickness: 7,
-                                ),
-                                SizedBox(
-                                  height: AppHeight.s23 * Constants.height,
-                                ),
-                                const SectionName(title: AppStrings.sizes),
-                                SizedBox(
-                                  height: AppHeight.s24 * Constants.height,
-                                ),
-                                _buildSizes(),
-                                SizedBox(
-                                  height: AppHeight.s30 * Constants.height,
-                                ),
-                                const Divider(
-                                  color: ColorsManager.platinum,
-                                  thickness: 7,
-                                ),
-                                SizedBox(
-                                  height: AppHeight.s20 * Constants.height,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: AppWidth.s10 * Constants.width,
-                                  ),
-                                  child: SizedBox(
-                                    width: double.maxFinite,
-                                    child: CustomButton(
+                                      Navigator.pop(dialogContext!);
+                                      _showDialog(context, state.message);
+                                      Future.delayed(const Duration(seconds: 1)).then((value) => Navigator.pop(dialogContext!));
+                                    }
+                                  },
+                                  builder: (context, state) {
+                                    return CustomButton(
                                         text: AppStrings.confirm.capitalizeFirst!,
                                         onPressed: () {
-                                          uploadFood(context, foodBlocState);
-                                        }),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: AppHeight.s30 * Constants.height,
-                          )
-                        ]),
+                                          uploadFood(context);
+                                        });
+                                  },
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ],
+                      SizedBox(
+                        height: AppHeight.s30 * Constants.height,
+                      )
+                    ]),
                   ),
-                ),
-              );
-            },
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -463,9 +464,9 @@ class AddFoodScreen extends StatelessWidget {
           );
         },
       );
-  uploadFood(BuildContext context, FoodBlocState state) async {
+  uploadFood(BuildContext context) async {
     formKey.currentState!.validate();
-
+    Utils.hideKeyboard();
     if (tags.isEmpty) {
       ErrorsManagerCubit.addErrorType(context, AppErrors.tags);
     }
@@ -474,19 +475,19 @@ class AddFoodScreen extends StatelessWidget {
     }
     if (!ErrorsManagerCubit.hasErrors(context)) {
       formKey.currentState!.save();
-      BlocProvider.of<FoodBloc>(context).add(
-        AddFoodEvent(
-          food: FoodPostModel(
-            userId: (await UserCubit.getUserFromStorage(context))!.userId,
-            foodName: title!,
-            description: description!,
-            longitude: '22.8',
-            latitude: '88',
-            price: 50,
-            sizes: foodSizesList,
-            categories: tags,
-            images: images.map((e) => File(e).path).toList(),
-          ),
+      UserModel? user = await UserCubit.getUserFromStorage(context);
+      FoodOperationManagerCubit.addFoodEvent(
+        context: context,
+        food: FoodPostModel(
+          userId: (await UserCubit.getUserFromStorage(context))!.userId,
+          foodName: title!,
+          description: description!,
+          longitude: '22.8',
+          latitude: '88',
+          price: 50,
+          sizes: foodSizesList,
+          categories: tags,
+          images: images.map((e) => File(e).path).toList(),
         ),
       );
     }

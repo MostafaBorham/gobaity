@@ -4,7 +4,6 @@ import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:yallabaity/network_layer/models/data_models/location_model.dart';
 import 'package:yallabaity/presentation/Dialogs/dialogs.dart';
-import 'package:yallabaity/presentation/manager/bloc_user/cubit_user.dart';
 import 'package:yallabaity/presentation/manager/cubit_dialog/dialog_manager_cubit.dart';
 import 'package:yallabaity/presentation/manager/cubit_location_manager/location_manager_cubit.dart';
 import 'package:yallabaity/presentation/manager/cubit_places_autocomplete/places_auto_complete_cubit.dart';
@@ -18,6 +17,7 @@ import 'package:yallabaity/presentation/widgets/circular_icon_button.dart';
 import 'package:yallabaity/presentation/widgets/custom_button.dart';
 import 'package:yallabaity/presentation/widgets/custom_dialog.dart';
 import 'package:yallabaity/presentation/widgets/search.dart';
+import '../manager/cubit_user_manager/cubit_user.dart';
 import '../resources/assets_manager.dart';
 import 'address_details.dart';
 

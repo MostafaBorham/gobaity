@@ -9,11 +9,15 @@ import 'package:yallabaity/network_layer/mapper/mapper.dart';
 import 'package:yallabaity/network_layer/models/data_models/food_view_and_order_model.dart';
 import 'package:yallabaity/presentation/manager/cubit_foods/foods_manager_cubit.dart';
 
-part 'cubit_food_manager_state.dart';
+import '../../../domain/entities/response_entities/response_entity.dart';
+import '../../../network_layer/models/data_models/food_model.dart';
+import '../../../network_layer/models/data_models/food_post_model.dart';
 
-class FoodManagerCubit extends Cubit<FoodManagerState> {
+part 'cubit_food_operation_manager_state.dart';
+
+class FoodOperationManagerCubit extends Cubit<FoodOperationManagerState> {
   final FoodsUseCases foodsUseCase; //foods use case exists in domain layer
-  FoodManagerCubit({required this.foodsUseCase}) : super(FoodCreateOrReadOrUpdateOrDeleteLoadingState());
+  FoodOperationManagerCubit({required this.foodsUseCase}) : super(FoodCreateOrReadOrUpdateOrDeleteLoadingState());
   getFoodById(int id) async {
     emit(FoodCreateOrReadOrUpdateOrDeleteLoadingState());
     Either<Failure, FoodViewAndOrderResponseEntity> either = await foodsUseCase.get(id);
@@ -23,5 +27,16 @@ class FoodManagerCubit extends Cubit<FoodManagerState> {
             emit(FoodLoadedState(foodViewAndOrder: responseEntity.fromEntityToModel().food!.fromEntityToModel())));
   }
 
-  static getFoodByIdEvent(BuildContext context, int id) => BlocProvider.of<FoodManagerCubit>(context).getFoodById(id);
+  addFood({required FoodPostModel food}) async {
+    emit(AddOrUpdateOrDeleteFoodStartingState());
+    Either<Failure, ResponseEntity> either = await foodsUseCase.add(food);
+    either.fold((failure) => emit(AddOrUpdateOrDeleteFoodsFailureState(message: mapFailureToMessage(failure))),
+        (ResponseEntity responseEntity) => emit(AddOrUpdateOrDeleteFoodStateSuccessState(message: responseEntity.message!)));
+  }
+
+  static addFoodEvent({required BuildContext context, required FoodPostModel food}) {
+    BlocProvider.of<FoodOperationManagerCubit>(context).addFood(food: food);
+  }
+
+  static getFoodByIdEvent(BuildContext context, int id) => BlocProvider.of<FoodOperationManagerCubit>(context).getFoodById(id);
 }

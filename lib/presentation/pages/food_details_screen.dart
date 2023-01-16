@@ -16,11 +16,9 @@ import 'package:yallabaity/network_layer/models/data_models/food_view_and_order_
 import 'package:yallabaity/network_layer/models/data_models/size_model.dart';
 import 'package:yallabaity/network_layer/models/data_models/user_model.dart';
 import 'package:yallabaity/network_layer/models/product_size_model.dart';
-import 'package:yallabaity/presentation/manager/bloc_user/cubit_user.dart';
 import 'package:yallabaity/presentation/manager/cubit_cart_manager/cubit_cart_manager_cubit.dart';
 import 'package:yallabaity/presentation/manager/cubit_categories/categories_manager_cubit.dart';
 import 'package:yallabaity/presentation/manager/cubit_cook_foods_manager/cubit_cook_foods_manager_cubit.dart';
-import 'package:yallabaity/presentation/manager/cubit_food_manager/cubit_food_manager_cubit.dart';
 import 'package:yallabaity/presentation/resources/assets_manager.dart';
 import 'package:yallabaity/presentation/resources/colors_manager.dart';
 import 'package:yallabaity/presentation/resources/constants_manager.dart';
@@ -41,6 +39,8 @@ import 'package:yallabaity/injection_container.dart' as di;
 import '../../application/app_api_constants/sorting_constants.dart';
 import '../../network_layer/models/data_models/category_model.dart';
 import '../../network_layer/models/data_models/cook_get_params_model.dart';
+import '../manager/cubit_food_operation_manager/cubit_food_operation_manager_cubit.dart';
+import '../manager/cubit_user_manager/cubit_user.dart';
 import '../widgets/description_and_reviews.dart';
 import '../widgets/custom_image_slider.dart';
 import '../widgets/food_sizes_widget.dart';
@@ -83,7 +83,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> with TickerProvid
       body: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => di.getIt<FoodManagerCubit>()..getFoodById(foodId!),
+            create: (context) => di.getIt<FoodOperationManagerCubit>()..getFoodById(foodId!),
           ),
           BlocProvider(
             create: (context) => di.getIt<CookFoodsManagerCubit>()
@@ -95,7 +95,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> with TickerProvid
             create: (context) => di.getIt<CategoriesManagerCubit>()..getUserCategories(providerId!),
           ),
         ],
-        child: BlocConsumer<FoodManagerCubit, FoodManagerState>(
+        child: BlocConsumer<FoodOperationManagerCubit, FoodOperationManagerState>(
           listener: (context, foodState) {
            debugPrint(foodState.runtimeType.toString());
             if (foodState is FoodLoadedState) {

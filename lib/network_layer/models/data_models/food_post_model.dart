@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'package:yallabaity/application/extensions.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:http_parser/src/media_type.dart';
 import 'package:yallabaity/domain/entities/requests_entites/food_post_entity.dart';
@@ -64,14 +62,18 @@ class FoodPostModel extends FoodPostEntity {
     request.fields['FoodName'] = foodName!;
     request.fields['Price'] = price!.toString();
     request.fields['Description'] = description!;
+
+    List<Map<String,String>> sizesList= [];
+
     for (SizeModel size in sizes as List<SizeModel>) {
-      request.files.add(
-          http.MultipartFile.fromString('Sizes', size.toJson().fromJsonToString));
+      sizesList.add(size.toMultiPart());
     }
-    for (int category in categories!) {
-      request.files.add(
-          http.MultipartFile.fromString('categories', category.toString()));
-    }
+    print(sizesList.fromJsonToString);
+    request.files.add(
+        http.MultipartFile.fromString('Sizes', sizesList.fromJsonToString));
+    request.files.add(
+          http.MultipartFile.fromString('categories', categories.toString()));
+
     for (int index = 0; index < images!.length; index++) {
       request.files.add(await http.MultipartFile.fromPath(
           'images', images![index],
