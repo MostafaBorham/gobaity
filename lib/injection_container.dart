@@ -51,6 +51,7 @@ import 'network_layer/data_sources/cart_local_datasource.dart';
 import 'network_layer/data_sources/cart_remote_datasource.dart';
 import 'network_layer/data_sources/food_sizes_local_datasource.dart';
 import 'network_layer/repositories/cart_repo_impl.dart';
+import 'presentation/manager/bloc_foods/foods_bloc.dart';
 import 'presentation/manager/cubit_ads_manager/cubit_ads_manager_cubit.dart';
 import 'presentation/manager/cubit_categories/categories_manager_cubit.dart';
 import 'presentation/manager/cubit_cook_foods_manager/cubit_cook_foods_manager_cubit.dart';
@@ -68,6 +69,7 @@ Future<void> init() async {
 
   getIt.registerFactory<CategoriesManagerCubit>(() => CategoriesManagerCubit(categoriesUseCases: getIt()));
   getIt.registerFactory<FoodBloc>(() => FoodBloc(foodUseCases: getIt()));
+  getIt.registerFactory<FoodsBloc>(() => FoodsBloc(foodUseCases: getIt()));
   getIt.registerFactory<SizesBloc>(() => SizesBloc(sizesUseCases: getIt()));
   /*                                       foods cubit                                              */
   getIt.registerFactory<FoodsManagerCubit>(() => FoodsManagerCubit(foodUseCases: getIt()));

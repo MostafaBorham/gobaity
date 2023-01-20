@@ -69,27 +69,28 @@ class SplashScreen extends StatelessWidget {
     super.initState();
 
   }*/
-  getUser(BuildContext context){
-     UserCubit.getUserEvent(context);
+  getUser(BuildContext context) {
+    UserCubit.getUserEvent(context);
   }
+
   @override
   Widget build(BuildContext context) {
-
     //getUser(context);
-   debugPrint('sppppppppppppppps');
+    debugPrint('sppppppppppppppps');
     Constants.height = MediaQuery.of(context).size.height;
     Constants.width = MediaQuery.of(context).size.width;
     Constants.margin = AppWidth.s23 * Constants.width;
     return Scaffold(
       backgroundColor: ColorsManager.steelPink,
-      body: BlocListener<UserCubit,UserState>(
+      body: BlocListener<UserCubit, UserState>(
         listener: (context, state) {
-         debugPrint(state.runtimeType.toString());
+          debugPrint(state.runtimeType.toString());
           if (state is AlreadyLoggedInState) {
             Timer(
               const Duration(seconds: 4),
               () {
-                Navigator.of(context).pushReplacementNamed(Routes.getStartedRoute);
+                Navigator.of(context)
+                    .pushReplacementNamed(Routes.getStartedRoute);
               },
             );
           }
@@ -103,7 +104,8 @@ class SplashScreen extends StatelessWidget {
           }
         },
         child: Center(
-          child: Column(//set widgets vertically
+          child: Column(
+            //set widgets vertically
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
@@ -119,7 +121,8 @@ class SplashScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 100),
                 child: AutoSizeText(
                   AppStrings.slogan,
-                  style: getRegularStyle(fontSize: 15, color: ColorsManager.white),
+                  style:
+                      getRegularStyle(fontSize: 15, color: ColorsManager.white),
                   maxLines: 2,
                   textAlign: TextAlign.center,
                 ),

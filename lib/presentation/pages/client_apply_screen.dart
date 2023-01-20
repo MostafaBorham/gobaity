@@ -30,7 +30,7 @@ class ClientApplyScreen extends StatelessWidget {
   String? phone;
   @override
   Widget build(BuildContext context) {
-   debugPrint('build all');
+    debugPrint('build all');
     return Scaffold(
       backgroundColor: ColorsManager.black,
       body: BlocProvider(
@@ -39,53 +39,61 @@ class ClientApplyScreen extends StatelessWidget {
           onBackBtnPressed: () {},
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            child: Column(//set widgets vertically
-              children: [
-                SizedBox(
-                  height: AppHeight.s31 * Constants.height,
-                ),
-                CustomTitle(text: AppStrings.createAccount),
-                SizedBox(
-                  height: AppHeight.s10*Constants.height,
-                ),
-                CustomRichText(
-                  text: AppStrings.alreadyHaveAccount,
-                  btnText: AppStrings.login,
-                  textBtnColor: ColorsManager.maximumPurple,
-                  onPressed: () {
-                    _onLoginButtonPressed(context);
-                  },
-                ),
-                SizedBox(
-                  height: AppHeight.s38 * Constants.height,
-                ),
-                Column(//set widgets vertically
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: AppWidth.s33 * Constants.width),
-                      child: _buildInputFormField(context),
-                    ),
-                    SizedBox(
-                      height: AppHeight.s27*Constants.height,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: AppWidth.s40 * Constants.width),
-                      child: Text(
-                        AppStrings.agreeSigningUp,
-                        textAlign: TextAlign.center,
-                        style: getMediumStyle(
-                            fontSize: 13,
-                            color: ColorsManager.eerieBlack),
+            child:TweenAnimationBuilder(
+              tween: Tween<Offset>(begin:Offset(Constants.zero, Constants.height),end: Offset(Constants.zero, Constants.height*AppHeight.s5)),
+              duration: Duration(milliseconds: Constants.dm2),
+              builder: (context,Offset value, child) {
+                return Transform.translate(offset: value,child: child,);
+              },
+              child: Column(
+                //set widgets vertically
+                children: [
+                  SizedBox(
+                    height: AppHeight.s31 * Constants.height,
+                  ),
+                  CustomTitle(text: AppStrings.createAccount),
+                  SizedBox(
+                    height: AppHeight.s10 * Constants.height,
+                  ),
+                  CustomRichText(
+                    text: AppStrings.alreadyHaveAccount,
+                    btnText: AppStrings.login,
+                    textBtnColor: ColorsManager.maximumPurple,
+                    onPressed: () {
+                      _onLoginButtonPressed(context);
+                    },
+                  ),
+                  SizedBox(
+                    height: AppHeight.s38 * Constants.height,
+                  ),
+                  Column(
+                    //set widgets vertically
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppWidth.s33 * Constants.width),
+                        child: _buildInputFormField(context),
                       ),
-                    ),
-                    SizedBox(
-                      height: AppHeight.s30 * Constants.height,
-                    )
-                  ],
-                ),
-              ],
+                      SizedBox(
+                        height: AppHeight.s27 * Constants.height,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppWidth.s40 * Constants.width),
+                        child: Text(
+                          AppStrings.agreeSigningUp,
+                          textAlign: TextAlign.center,
+                          style: getMediumStyle(
+                              fontSize: 13, color: ColorsManager.eerieBlack),
+                        ),
+                      ),
+                      SizedBox(
+                        height: AppHeight.s30 * Constants.height,
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -97,11 +105,12 @@ class ClientApplyScreen extends StatelessWidget {
       BlocConsumer<ErrorsManagerCubit, ErrorsManagerState>(
         listener: (context, state) {},
         builder: (context, state) {
-         debugPrint('rebuild');
-         debugPrint('$context');
+          debugPrint('rebuild');
+          debugPrint('$context');
           return Form(
               key: formKey,
-              child: Column(//set widgets vertically
+              child: Column(
+                //set widgets vertically
                 children: [
                   _buildNameWidget(context),
                   SizedBox(
@@ -215,19 +224,18 @@ class ClientApplyScreen extends StatelessWidget {
 
   void _buildOnRegisterButtonPressed(BuildContext context) {
     formKey.currentState!.validate();
-   debugPrint(ErrorsManagerCubit.hasErrors(context).toString());
+    debugPrint(ErrorsManagerCubit.hasErrors(context).toString());
     if (!ErrorsManagerCubit.hasErrors(context)) {
       formKey.currentState!.save();
-     debugPrint(name);
-     debugPrint(phone);
-     debugPrint(password);
+      debugPrint(name);
+      debugPrint(phone);
+      debugPrint(password);
       Navigator.pushNamed(context, Routes.verificationRoute, arguments: {
         VerificationScreen.userInfo: UserModel(
           userId: 0,
           userName: name,
           password: password,
           phone: '0$phone',
-
         ),
       });
     }

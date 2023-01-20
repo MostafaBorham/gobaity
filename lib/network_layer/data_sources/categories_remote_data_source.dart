@@ -19,8 +19,10 @@ class CategoriesImplWithHttp implements CategoriesRemoteDataSource {
   @override
   Future<CategoriesResponseModel> getCategories() async {
     try {
-      Map<String, dynamic>? responseBody = await networkService.get(entity: ApiConstants.categoriesEntity);
-      CategoriesResponseModel categoriesData = CategoriesResponseModel.fromJson(responseBody);
+      Map<String, dynamic>? responseBody =
+          await networkService.get(entity: ApiConstants.categoriesEntity);
+      CategoriesResponseModel categoriesData =
+          CategoriesResponseModel.fromJson(responseBody);
       return categoriesData;
     } on ServerException {
       throw ServerException();
@@ -32,8 +34,10 @@ class CategoriesImplWithHttp implements CategoriesRemoteDataSource {
   @override
   Future<CategoriesResponseModel> getUserCategories(int id) async {
     try {
-      Map<String, dynamic>? responseBody = await networkService.get(entity: ApiConstants.userCategoriesEntity, id: id.toString());
-      CategoriesResponseModel categoriesData = CategoriesResponseModel.fromJson(responseBody);
+      Map<String, dynamic>? responseBody = await networkService.get(
+          entity: ApiConstants.userCategoriesEntity, id: id.toString());
+      CategoriesResponseModel categoriesData =
+          CategoriesResponseModel.fromJson(responseBody);
       return categoriesData;
     } on ServerException {
       throw ServerException();

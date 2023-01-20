@@ -30,5 +30,4 @@ class FoodsUseCases {
   Future<Either<Failure, ResponseEntity>> update(FoodModel food) async => await foodsRepo.update(food);
   Future<Either<Failure, CookFoodsResponseEntity>> getCookFoods(CookGetParamsEntity cookGetParamsEntity) =>
       foodsRepo.getCookFoods(cookGetParams: cookGetParamsEntity);
-  Future<Either<Failure,FoodViewAndOrderResponseEntity>> getTopRatedCookFood(int cookId)async=>await foodsRepo.get(cookId);
 }

@@ -59,7 +59,7 @@ class FoodItem extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: double.maxFinite,
-                          height: AppHeight.s106 * Constants.height,
+                          height: AppHeight.s106 * Constants.height,//myHeight
                           child: CustomNetworkImage(
                             imageUrl: ApiConstants.fullUrl + food!.imagePath!,
                           ),

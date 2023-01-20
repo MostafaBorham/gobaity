@@ -7,7 +7,7 @@ class ApiConstants {
   static const String placesAutoCompleteEntity= 'maps/api/place/autocomplete/json';
   static const String googleApiKey= "AIzaSyBkg1Hg_DXQw2QoiQefKwBiYvqueqdmm30";
 
-  static const String foodsEntity = '/api/foods';
+  static const String foodsEntity = '/api/Foods';
   static const String loginSubEntity = 'Login';
   static const String categoriesEntity = '/api/categories';
   static const String sizesEntity = '/api/sizes';

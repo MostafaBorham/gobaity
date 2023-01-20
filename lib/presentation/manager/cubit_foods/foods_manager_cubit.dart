@@ -74,17 +74,4 @@ class FoodsManagerCubit extends Cubit<FoodsManagerState> {
   static getFoodsRefreshEvent(BuildContext context) {
     BlocProvider.of<FoodsManagerCubit>(context).getFoodsRefresh();
   }
-
-  getTopRatedCookFood({required int cookId})async{
-    emit(FoodsLoadingState());
-    final topRatedResult= await foodUseCases.getTopRatedCookFood(cookId);
-    topRatedResult.fold((Failure failure) => emit(FoodsErrorState(message: mapFailureToMessage(failure))),
-            (FoodViewAndOrderResponseEntity foodResponse) {
-          if (foodResponse.food!=null) {
-            emit(TopRatedCookFoodLoadedState(food: foodResponse.food!.food!));
-          } else {
-            emit(FoodsErrorState(message: 'No Top Rated Food For Cook !'));
-          }
-        });
-  }
 }

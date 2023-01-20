@@ -12,11 +12,13 @@ class Search extends StatelessWidget {
   void Function(String)? _onChanged;
   void Function(String)? _onSubmitted;
   void Function()? _onFilterPressed;
+  TextEditingController? _controller;
   Color? _color;
   String? _hintText;
   bool? _showFilter;
   Search({super.key,
     required String hintText,
+    TextEditingController? controller,
     Color color = ColorsManager.cultured,
     bool showFilter = false,
     Function(String)? onChanged,
@@ -28,6 +30,7 @@ class Search extends StatelessWidget {
     _onChanged = onChanged;
     _onSubmitted = onSubmitted;
     _onTap = onTap;
+    _controller=controller;
     _hintText = hintText;
     _color = color;
     _showFilter = showFilter;
@@ -45,6 +48,7 @@ class Search extends StatelessWidget {
                 color: _color, borderRadius: BorderRadius.circular(15)),
             child: TextField(
               cursorColor: ColorsManager.steelPink,
+              controller: _controller,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.zero,
                 prefixIconConstraints: BoxConstraints(

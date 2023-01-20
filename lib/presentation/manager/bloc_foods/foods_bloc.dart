@@ -22,9 +22,14 @@ class FoodsBloc extends Bloc<FoodsEvent, FoodsState> {
 
   FoodsBloc({required this.foodUseCases}) : super(FoodsInitial()) {
     on<FoodsEvent>((event, emit) async{
-      if (event is GetAllFoodsEvent || event is RefreshFoodsEvent) {
+      if (event is GetAllFoodsEvent) {
         emit(LoadingFoodsState());
-        Either<Failure, FoodsResponseEntity> either = await foodUseCases.getAll(foodsGetParams: FoodsGetParamsModel());
+        Either<Failure, FoodsResponseEntity> either = await foodUseCases.getAll(foodsGetParams: event.foodsGetParamsModel);
+        emit(mapEventToState(either));
+      }
+      if (event is RefreshFoodsEvent) {
+        emit(LoadingFoodsState());
+        Either<Failure, FoodsResponseEntity> either = await foodUseCases.getAll(foodsGetParams: event.foodsGetParamsModel);
         emit(mapEventToState(either));
       }
     });

@@ -1,11 +1,14 @@
 import 'package:animations/animations.dart';
+import 'dart:developer' as developer;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:yallabaity/application/app_api_constants/api_constants.dart';
+import 'package:yallabaity/application/app_api_constants/sorting_constants.dart';
 import 'package:yallabaity/application/app_constants/app_constants.dart';
 import 'package:yallabaity/application/utils.dart';
 import 'package:yallabaity/domain/entities/requests_entites/category_entity.dart';
@@ -14,6 +17,7 @@ import 'package:yallabaity/network_layer/models/data_models/ad_model.dart';
 import 'package:yallabaity/network_layer/models/data_models/cook_get_params_model.dart';
 import 'package:yallabaity/network_layer/models/data_models/cook_model.dart';
 import 'package:yallabaity/network_layer/models/data_models/food_model.dart';
+import 'package:yallabaity/network_layer/models/data_models/foods_get_params_model.dart';
 import 'package:yallabaity/network_layer/models/data_models/user_model.dart';
 import 'package:yallabaity/presentation/items/drawer_items.dart';
 import 'package:yallabaity/presentation/manager/bloc_categories/categories_bloc.dart';
@@ -41,6 +45,7 @@ import 'package:yallabaity/presentation/widgets/gradient_circular_progress_indic
 import 'package:yallabaity/presentation/widgets/icon_button.dart';
 import 'package:yallabaity/presentation/widgets/mycart.dart';
 import 'package:yallabaity/presentation/widgets/food_item.dart';
+import 'package:yallabaity/presentation/widgets/no_foods_ui.dart';
 import 'package:yallabaity/presentation/widgets/rectangle_skeleton.dart';
 import 'package:yallabaity/presentation/widgets/search.dart';
 import 'package:yallabaity/presentation/resources/routes_manager.dart';
@@ -67,10 +72,12 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isProvider = false;
   List<AdsModel> ads = [];
   List<CookModel> cooks = [];
+  final _scrollController = ScrollController();
 
   GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
   List<CategoryEntity>? categories;
   List<FoodEntity>? foods = [];
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -83,38 +90,100 @@ class _HomeScreenState extends State<HomeScreen> {
         drawer: _buildCustomDrawer(),
         body: BlocBuilder<UserCubit, UserState>(
           builder: (context, state) {
-            if (state is AlreadyLoggedInState) {
+/*            if (state is AlreadyLoggedInState) {
               UserModel user = state.user;
               //  isProvider = user.isProvider!;
-             debugPrint(user.isProvider.toString());
-            }
-            return SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(//set widgets vertically
+              debugPrint(user.isProvider.toString());
+            }*/
+            return Padding(
+              padding: EdgeInsets.only(top: AppHeight.s10 * Constants.height),
+              child: Stack(
+                alignment: Alignment.topCenter,
                 children: [
-                  if (isProvider)
-                    Column(//set widgets vertically
+                  SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    controller: _scrollController,
+                    child: Column(
+                      //set widgets vertically
                       children: [
+                        SizedBox(height: AppHeight.s60 * Constants.height),
+                        if (isProvider)
+                          Column(
+                            //set widgets vertically
+                            children: [
+                              SizedBox(
+                                height: AppHeight.s20 * Constants.height,
+                              ),
+                              Text(
+                                'You Have New Orders',
+                                style: getSemiBoldStyle(
+                                    fontSize: AppWidth.s18 * Constants.width,
+                                    color: ColorsManager.maximumPurple),
+                              ),
+                              SizedBox(
+                                height: AppHeight.s14 * Constants.height,
+                              ),
+                              CustomDataButton(
+                                  text: 'View orders',
+                                  suffix: SvgPicture.asset(
+                                    AssetsManager.arrow,
+                                    color: ColorsManager.white,
+                                  )),
+                            ],
+                          ),
+                        SizedBox(height: AppHeight.s22 * Constants.height),
+                        _buildCategories(),
                         SizedBox(
-                          height: AppHeight.s20 * Constants.height,
+                          height: AppHeight.s22 * Constants.height,
                         ),
-                        Text(
-                          'You Have New Orders',
-                          style: getSemiBoldStyle(fontSize: AppWidth.s18 * Constants.width, color: ColorsManager.maximumPurple),
+                        _buildSeparator(),
+                        SizedBox(
+                          height: AppHeight.s22 * Constants.height,
+                        ),
+                        _buildAdsSlider(),
+                        SizedBox(
+                          height: AppHeight.s22 * Constants.height,
+                        ),
+                        _buildSeparator(),
+                        SizedBox(
+                          height: AppHeight.s13 * Constants.height,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: Constants.margin),
+                          child: SectionName(
+                            title: 'Near You',
+                            subtitle: 'See All',
+                            onTap: () {
+                              Navigator.pushNamed(context, Routes.seeAllRoute);
+                            },
+                          ),
                         ),
                         SizedBox(
-                          height: AppHeight.s14 * Constants.height,
+                          height: AppHeight.s10 * Constants.height,
                         ),
-                        CustomDataButton(
-                            text: 'View orders',
-                            suffix: SvgPicture.asset(
-                              AssetsManager.arrow,
-                              color: ColorsManager.white,
-                            )),
+                        _buildFoods(),
+                        SizedBox(
+                          height: AppHeight.s22 * Constants.height,
+                        ),
+                        _buildSeparator(),
+                        SizedBox(
+                          height: AppHeight.s22 * Constants.height,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: Constants.margin),
+                          child: SectionName(
+                            title: 'Featured Cooks',
+                          ),
+                        ),
+                        SizedBox(
+                          height: AppHeight.s15 * Constants.height,
+                        ),
+                        _buildRatedCooks(),
+                        SizedBox(
+                          height: AppHeight.s50 * Constants.height,
+                        ),
                       ],
                     ),
-                  SizedBox(
-                    height: AppHeight.s14 * Constants.height,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
@@ -123,61 +192,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Search(
                       hintText: 'Search foods, Cooks',
                       color: ColorsManager.cultured,
-                      onTap: () {
-                       debugPrint('start search');
+                      onChanged: (keySearch) async {
+                        _scrollController.animateTo(Constants.height * 0.5,
+                            duration: Duration(milliseconds: Constants.d2),
+                            curve: Curves.linear);
+                        await FoodsManagerCubit.getFoodsEvent(context,
+                            foodGetParams: FoodsGetParamsModel(
+                              categoryId: 1, //category id
+                              page: 0, // start from page 0
+                              foodName:
+                              keySearch, //the change value from text field
+                              order: Sorting.mostPopular, //sort by most popular
+                            ));
+                        print("mojlkljk,jj= ${foods!.length}");
                       },
                     ),
-                  ),
-                  SizedBox(height: AppHeight.s22 * Constants.height),
-                  _buildCategories(),
-                  SizedBox(
-                    height: AppHeight.s22 * Constants.height,
-                  ),
-                  _buildSeparator(),
-                  SizedBox(
-                    height: AppHeight.s22 * Constants.height,
-                  ),
-                  _buildAdsSlider(),
-                  SizedBox(
-                    height: AppHeight.s22 * Constants.height,
-                  ),
-                  _buildSeparator(),
-                  SizedBox(
-                    height: AppHeight.s13 * Constants.height,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: Constants.margin),
-                    child: SectionName(
-                      title: 'Near You',
-                      subtitle: 'See All',
-                      onTap: () {
-                        Navigator.pushNamed(context, Routes.seeAllRoute);
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: AppHeight.s10 * Constants.height,
-                  ),
-                  _buildFoods(),
-                  SizedBox(
-                    height: AppHeight.s22 * Constants.height,
-                  ),
-                  _buildSeparator(),
-                  SizedBox(
-                    height: AppHeight.s22 * Constants.height,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: Constants.margin),
-                    child: SectionName(
-                      title: 'Featured Cooks',
-                    ),
-                  ),
-                  SizedBox(
-                    height: AppHeight.s15 * Constants.height,
-                  ),
-                  _buildRatedCooks(),
-                  SizedBox(
-                    height: AppHeight.s50 * Constants.height,
                   ),
                 ],
               ),
@@ -199,13 +228,15 @@ class _HomeScreenState extends State<HomeScreen> {
         thickness: AppHeight.s7 * Constants.height,
       );
 
-  void openDrawer(GlobalKey<ScaffoldState> key) => key.currentState!.openDrawer();
-  void closeDrawer(GlobalKey<ScaffoldState> key) => key.currentState!.closeDrawer();
+  void openDrawer(GlobalKey<ScaffoldState> key) =>
+      key.currentState!.openDrawer();
+  void closeDrawer(GlobalKey<ScaffoldState> key) =>
+      key.currentState!.closeDrawer();
 
   _buildCustomDrawer() => CustomDrawer(
         onTap: (item) {
           closeDrawer(key);
-         debugPrint(item.title);
+          debugPrint(item.title);
           if (item.title == DrawerItems.addFood.title) {
             Navigator.of(context).pushNamed(Routes.loginRoute);
           }
@@ -231,9 +262,11 @@ class _HomeScreenState extends State<HomeScreen> {
             Navigator.of(context).push(PageRouteBuilder(
               transitionDuration: Duration(seconds: 1),
               reverseTransitionDuration: Duration(seconds: 1),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                Animation<Offset> slide =
-                    animation.drive(Tween(begin: Offset(-.5, 0), end: Offset(0, 0))..chain(CurveTween(curve: Curves.easeInOut)));
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                Animation<Offset> slide = animation.drive(
+                    Tween(begin: Offset(-.5, 0), end: Offset(0, 0))
+                      ..chain(CurveTween(curve: Curves.easeInOut)));
                 return transition.SlideTransition(
                   position: slide,
                   child: child,
@@ -248,10 +281,13 @@ class _HomeScreenState extends State<HomeScreen> {
             Navigator.of(context).push(PageRouteBuilder(
               transitionDuration: Duration(seconds: 1),
               reverseTransitionDuration: Duration(seconds: 1),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                Animation<Offset> slide =
-                    animation.drive(Tween(begin: Offset(0.5, 0), end: Offset(0, 0))..chain(CurveTween(curve: Curves.easeInOut)));
-                return transition.SlideTransition(position: slide, child: child);
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                Animation<Offset> slide = animation.drive(
+                    Tween(begin: Offset(0.5, 0), end: Offset(0, 0))
+                      ..chain(CurveTween(curve: Curves.easeInOut)));
+                return transition.SlideTransition(
+                    position: slide, child: child);
               },
               pageBuilder: (context, animation, secondaryAnimation) {
                 return CategoryScreen();
@@ -263,9 +299,11 @@ class _HomeScreenState extends State<HomeScreen> {
             Navigator.of(context).push(PageRouteBuilder(
               transitionDuration: Duration(seconds: 1),
               reverseTransitionDuration: Duration(seconds: 1),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                Animation<double> scale =
-                    animation.drive(Tween(begin: 0, end: 1)..chain(CurveTween(curve: Curves.fastOutSlowIn)));
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                Animation<double> scale = animation.drive(
+                    Tween(begin: 0, end: 1)
+                      ..chain(CurveTween(curve: Curves.fastOutSlowIn)));
                 return transition.ScaleTransition(
                   scale: scale,
                   child: child,
@@ -291,12 +329,15 @@ class _HomeScreenState extends State<HomeScreen> {
       titleFontSize: 13,
       subtitle: 'maadi, cairo',
       showSubtitleDropDownArrow: true,
-      onTitlePressed: () => Navigator.of(context).pushNamed(Routes.clientLocationRoute),
-      suffix: MyCart(onTap: () => Navigator.pushNamed(context, Routes.cartRoute)));
+      onTitlePressed: () =>
+          Navigator.of(context).pushNamed(Routes.clientLocationRoute),
+      suffix:
+          MyCart(onTap: () => Navigator.pushNamed(context, Routes.cartRoute)));
 
   _buildCategories() {
     return SizedBox(
-      height: AppWidth.s53 * Constants.width + AppHeight.s7 * Constants.height + 30,
+      height:
+          AppWidth.s53 * Constants.width + AppHeight.s7 * Constants.height + 30,
       child: BlocConsumer<CategoriesManagerCubit, CategoriesManagerState>(
         listener: (context, state) {
           debugPrint(state.runtimeType.toString());
@@ -313,16 +354,21 @@ class _HomeScreenState extends State<HomeScreen> {
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               padding: EdgeInsets.zero,
-              itemCount: state is CategoriesLoadedState ? categories!.length : 5,
+              itemCount:
+                  state is CategoriesLoadedState ? categories!.length : 5,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: EdgeInsets.only(left: index == 0 ? Constants.margin : 0),
+                  padding:
+                      EdgeInsets.only(left: index == 0 ? Constants.margin : 0),
                   child: CategoryItem(
-                    category: state is CategoriesLoadedState ? categories![index] : null,
+                    category: state is CategoriesLoadedState
+                        ? categories![index]
+                        : null,
                     index: index,
                     isLoaded: state is CategoriesLoadedState,
                     onTap: () {
-                      Navigator.pushNamed(context, Routes.categoryRoute, arguments: {CategoryScreen.categoryKey: index});
+                      Navigator.pushNamed(context, Routes.categoryRoute,
+                          arguments: {CategoryScreen.categoryKey: index});
                     },
                   ),
                 );
@@ -350,18 +396,20 @@ class _HomeScreenState extends State<HomeScreen> {
       );
   _buildRatedCooks() => BlocConsumer<CooksManagerCubit, CooksManagerState>(
         listener: (context, state) {
-         debugPrint(state.toString());
+          debugPrint(state.toString());
           if (state is CooksLoadedState) {
             cooks.addAll(state.cooks);
             debugPrint(cooks[0].cookId.toString());
-           debugPrint(cooks.length.toString());
-           debugPrint(cooks[0].cookName);
+            debugPrint(cooks.length.toString());
+            debugPrint(cooks[0].cookName);
           }
         },
         builder: (context, state) => NotificationListener(
           onNotification: (notification) {
             if (notification is ScrollEndNotification) {
-              if (notification.metrics.maxScrollExtent - notification.metrics.extentBefore < 600) {
+              if (notification.metrics.maxScrollExtent -
+                      notification.metrics.extentBefore <
+                  600) {
                 //load more from server
                 //print('load more from server');
                 // FoodsManagerCubit.getMoreFoodsEvent(context);
@@ -373,8 +421,12 @@ class _HomeScreenState extends State<HomeScreen> {
             itemCount: state is! CooksLoadingState ? cooks.length : 5,
             itemBuilder: (index) => Padding(
               padding: EdgeInsets.only(
-                  left: index == 0 ? Constants.margin : AppWidth.s28 * Constants.width / 2,
-                  right: index + 1 == 5 ? Constants.margin : AppWidth.s28 * Constants.width / 2),
+                  left: index == 0
+                      ? Constants.margin
+                      : AppWidth.s28 * Constants.width / 2,
+                  right: index + 1 == 5
+                      ? Constants.margin
+                      : AppWidth.s28 * Constants.width / 2),
               child: OpenContainer(
                 openElevation: 0,
                 closedElevation: 0,
@@ -382,16 +434,26 @@ class _HomeScreenState extends State<HomeScreen> {
                 transitionDuration: const Duration(milliseconds: 400),
                 middleColor: ColorsManager.grey.withOpacity(0.002),
                 closedBuilder: (BuildContext context, void Function() action) {
-                  debugPrint('here');
+                  debugPrint('closeContainer');
                   return CookItem(
                     isLoaded: state is! CooksLoadingState,
                     cook: state is! CooksLoadingState ? cooks[index] : null,
                     onTap: action,
                   );
                 },
-                openBuilder: (BuildContext context, void Function({Object? returnValue}) action) {
-                  BlocProvider.of<FoodsManagerCubit>(context).getTopRatedCookFood(cookId: cooks[index].cookId!);//my work
-                  return CookProfileScreen(cook: cooks[index],);
+                openBuilder: (BuildContext context,
+                    void Function({Object? returnValue}) action) {
+                  developer.log(state is CooksLoadedState
+                      ? state.cooks[index].cookId.toString()
+                      : 'empty');
+                  //my work
+                  BlocProvider.of<CategoriesBloc>(context)
+                      .add(GetUserCategoriesEvent(userId: 2));
+                  CookFoodsManagerCubit.getCookFoodsEvent(context,
+                      cookGetParams: CookGetParamsModel(providerId: 2));
+                  return CookProfileScreen(
+                    cook: state is CooksLoadedState ? state.cooks[index] : null,
+                  );
                 },
               ),
             ),
@@ -400,13 +462,18 @@ class _HomeScreenState extends State<HomeScreen> {
       );
   _buildFoods() => BlocConsumer<FoodsManagerCubit, FoodsManagerState>(
         listener: (context, state) {
-         debugPrint(state.runtimeType.toString());
+          debugPrint(state.runtimeType.toString());
           if (state is FoodsLoadedState) {
-            foods!.addAll(state.foods);
-           debugPrint(state.foods.length.toString());
+            //foods!.addAll(state.foods);
+            foods = state.foods;
+            debugPrint(state.foods.length.toString());
           }
           if (state is LoadingMoreFoodsState) {
-           debugPrint('loading more');
+            foods = state.foods;
+            debugPrint('loading more');
+          }
+          if (state is AllFoodAreLoaded) {
+            foods = state.foods;
           }
         },
         builder: (context, foodsState) => Container(
@@ -416,55 +483,74 @@ class _HomeScreenState extends State<HomeScreen> {
             child: NotificationListener(
                 onNotification: (notification) {
                   if (notification is ScrollEndNotification) {
-                    if (notification.metrics.maxScrollExtent - notification.metrics.extentBefore < 600) {
+                    if (notification.metrics.maxScrollExtent -
+                            notification.metrics.extentBefore <
+                        600) {
                       //load more from server
-                     debugPrint('load more from server');
+                      debugPrint('load more from server');
                       FoodsManagerCubit.getMoreFoodsEvent(context);
                     }
                   }
                   return true;
                 },
-                child: HorizontalListView(
-                    itemCount: foodsState is! FoodsLoadingState ? foods!.length : 2,
-                    itemBuilder: (index) {
-                      return Padding(
-                        padding: EdgeInsets.only(
-                          left: index == 0 ? Constants.margin : AppWidth.s12 * Constants.width,
-                          right: index + 1 == foods!.length ? Constants.margin : 0,
-                        ),
-                        child: Row(// set widgets horizontally
-                          children: [
-                            FoodItem(
-                              food: foodsState is! FoodsLoadingState ? foods![index] : null,
-                              isLoaded: foodsState is! FoodsLoadingState,
-                              width: AppWidth.s200 * Constants.width,
-                              onTap: () {
-                                //  FoodManagerCubit.getFoodByIdEvent(context, foods![index].foodId!);
-
-                                // CookFoodsManagerCubit.getCookFoodsEvent(context,
-                                //     cookGetParams: CookGetParamsModel(providerId: foods![index].userId!));
-                                Navigator.pushNamed(context, Routes.foodDetailsRoute, arguments: {
-                                  FoodDetailsScreen.foodIdKey: foods![index].foodId,
-                                  FoodDetailsScreen.providerIdKey: foods![index].userId
-                                });
-                              },
-                              onFavouriteBtnPressed: (value) {
-                                setState(() {
-                                  FoodModel.all[index].isFavorited = value;
-                                });
-                              },
+                child: foods!.isEmpty && foodsState is FoodsLoadedState
+                    ? const NoFoodsUi()
+                    : HorizontalListView(
+                        itemCount: foodsState is! FoodsLoadingState
+                            ? foods!.length
+                            : 2,
+                        itemBuilder: (index) {
+                          return Padding(
+                            padding: EdgeInsets.only(
+                              left: index == 0
+                                  ? Constants.margin
+                                  : AppWidth.s12 * Constants.width,
+                              right: index + 1 == foods!.length
+                                  ? Constants.margin
+                                  : 0,
                             ),
-                            if (foodsState is LoadingMoreFoodsState && index + 1 == foods!.length)
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: Constants.margin),
-                                child: CustomCircularProgressbar(
-                                  radius: AppWidth.s12 * Constants.width,
+                            child: Row(
+                              // set widgets horizontally
+                              children: [
+                                FoodItem(
+                                  food: foodsState is! FoodsLoadingState
+                                      ? foods![index]
+                                      : null,
+                                  isLoaded: foodsState is! FoodsLoadingState,
+                                  width: AppWidth.s200 * Constants.width,
+                                  onTap: () {
+                                    //  FoodManagerCubit.getFoodByIdEvent(context, foods![index].foodId!);
+
+                                    // CookFoodsManagerCubit.getCookFoodsEvent(context,
+                                    //     cookGetParams: CookGetParamsModel(providerId: foods![index].userId!));
+                                    Navigator.pushNamed(
+                                        context, Routes.foodDetailsRoute,
+                                        arguments: {
+                                          FoodDetailsScreen.foodIdKey:
+                                              foods![index].foodId,
+                                          FoodDetailsScreen.providerIdKey:
+                                              foods![index].userId
+                                        });
+                                  },
+                                  onFavouriteBtnPressed: (value) {
+                                    setState(() {
+                                      FoodModel.all[index].isFavorited = value;
+                                    });
+                                  },
                                 ),
-                              )
-                          ],
-                        ),
-                      );
-                    })),
+                                if (foodsState is LoadingMoreFoodsState &&
+                                    index + 1 == foods!.length)
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: Constants.margin),
+                                    child: CustomCircularProgressbar(
+                                      radius: AppWidth.s12 * Constants.width,
+                                    ),
+                                  )
+                              ],
+                            ),
+                          );
+                        })),
           ),
         ),
       );

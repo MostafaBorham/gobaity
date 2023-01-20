@@ -30,6 +30,15 @@ class CategoriesBloc
             (CategoriesResponseEntity categoriesResponse) => emit(
                 LoadedState(categories: categoriesResponse.data!)));
       }
+      if(event is GetUserCategoriesEvent){
+        emit(LoadingState());
+        final Either<Failure, CategoriesResponseEntity> userCategoriesResponse = await categoriesUseCases.getUserCategories(event.userId);
+        userCategoriesResponse.fold(
+                (Failure failure) =>
+                emit(ErrorState(message: mapFailureToMessage(failure))),
+                (CategoriesResponseEntity userCategoriesResponse) => emit(
+                LoadedState(categories: userCategoriesResponse.data!)));
+      }
     });
   }
 

@@ -62,7 +62,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> with TickerProvid
   late TabController _categoriesTabController;
   FoodViewAndOrderModel? foodViewAndOrder;
   List<FoodModel> cookFoods = [];
-  List<FoodModel> cookTopFoods = [];
+  List<FoodEntity> cookTopFoods = [];
   List<SizeModel>? sizes;
   int? foodId;
   int? providerId;

@@ -38,20 +38,25 @@ class FoodRepoImpl extends FoodsRepo {
     required this.networkStatus,
   });
   @override
-  Future<Either<Failure, ResponseModel>> add(FoodPostModel food) => operation(crud: () => foodsRemoteDataSource.addFood(food));
+  Future<Either<Failure, ResponseModel>> add(FoodPostModel food) =>
+      operation(crud: () => foodsRemoteDataSource.addFood(food));
 
   @override
-  Future<Either<Failure, ResponseModel>> delete(int id) => operation(crud: () => foodsRemoteDataSource.deleteFood(id));
+  Future<Either<Failure, ResponseModel>> delete(int id) =>
+      operation(crud: () => foodsRemoteDataSource.deleteFood(id));
 
   @override
-  Future<Either<Failure, ResponseModel>> update(FoodModel food) => operation(crud: () => foodsRemoteDataSource.updateFood(food));
+  Future<Either<Failure, ResponseModel>> update(FoodModel food) =>
+      operation(crud: () => foodsRemoteDataSource.updateFood(food));
 
   @override
-  Future<Either<Failure, FoodsResponseModel>> getAll({required FoodsGetParamsModel foodsGetParams}) async {
+  Future<Either<Failure, FoodsResponseModel>> getAll(
+      {required FoodsGetParamsModel foodsGetParams}) async {
     if (await networkStatus.isConnected) {
       try {
         /* remote data source */
-        final FoodsResponseModel foodsResponse = await foodsRemoteDataSource.getAll(foodsGetParams: foodsGetParams);
+        final FoodsResponseModel foodsResponse =
+            await foodsRemoteDataSource.getAll(foodsGetParams: foodsGetParams);
         foodsLocalDataSource.cacheFoods(foodsResponse);
         return Right(foodsResponse);
       } on ServerException {
@@ -97,7 +102,8 @@ class FoodRepoImpl extends FoodsRepo {
     throw UnimplementedError();
   }
 
-  Future<Either<Failure, ResponseModel>> operation({required FutureResponseModelFun crud}) async {
+  Future<Either<Failure, ResponseModel>> operation(
+      {required FutureResponseModelFun crud}) async {
     if (await networkStatus.isConnected) {
       try {
         ResponseModel responseModel = await crud();
@@ -113,7 +119,8 @@ class FoodRepoImpl extends FoodsRepo {
   Future<Either<Failure, FoodViewAndOrderResponseModel>> get(int id) async {
     if (await networkStatus.isConnected) {
       try {
-        FoodViewAndOrderResponseModel foodViewAndOrderResponse = await foodsRemoteDataSource.getFood(id);
+        FoodViewAndOrderResponseModel foodViewAndOrderResponse =
+            await foodsRemoteDataSource.getFood(id);
         try {
           foodsLocalDataSource.cacheFoodWithId(id, foodViewAndOrderResponse);
         } on WritingCashException {
@@ -126,7 +133,8 @@ class FoodRepoImpl extends FoodsRepo {
     } else {
       /*get data from local data source*/
       try {
-        FoodViewAndOrderResponseModel foodViewAndOrderResponse = await foodsLocalDataSource.getCachedFoodWithId(id);
+        FoodViewAndOrderResponseModel foodViewAndOrderResponse =
+            await foodsLocalDataSource.getCachedFoodWithId(id);
         return Right(foodViewAndOrderResponse);
       } on EmptyCashException {
         return Left(EmptyCashFailure());
@@ -135,13 +143,16 @@ class FoodRepoImpl extends FoodsRepo {
   }
 
   @override
-  Future<Either<Failure, CookFoodsResponseEntity>> getCookFoods({required CookGetParamsEntity cookGetParams}) async {
+  Future<Either<Failure, CookFoodsResponseEntity>> getCookFoods(
+      {required CookGetParamsEntity cookGetParams}) async {
     if (await networkStatus.isConnected) {
       try {
         /* remote data source */
         final CookFoodsResponseModel cookFoodsResponse =
-            await foodsRemoteDataSource.getCookFoods(cookGetParams: cookGetParams.fromEntityToModel());
-        foodsLocalDataSource.cacheCookFoods(cookGetParams.providerId!, cookFoodsResponse);
+            await foodsRemoteDataSource.getCookFoods(
+                cookGetParams: cookGetParams.fromEntityToModel());
+        foodsLocalDataSource.cacheCookFoods(
+            cookGetParams.providerId!, cookFoodsResponse);
         return Right(cookFoodsResponse);
       } on ServerException {
         return Left(ServerFailure());
@@ -150,7 +161,8 @@ class FoodRepoImpl extends FoodsRepo {
       /* in case internet not connected */
       /*local data source*/
       try {
-        final localCookFoods = await foodsLocalDataSource.getCachedCookFoods(cookGetParams.providerId!);
+        final localCookFoods = await foodsLocalDataSource
+            .getCachedCookFoods(cookGetParams.providerId!);
         return Right(localCookFoods);
       } on EmptyCashException {
         return Left(EmptyCashFailure());

@@ -7,6 +7,14 @@ class LoadingFoodsEvent extends FoodsEvent {}
 
 class LoadedFoodsEvent extends FoodsEvent {}
 
-class RefreshFoodsEvent extends FoodsEvent {}
+class RefreshFoodsEvent extends FoodsEvent {
+  final FoodsGetParamsModel foodsGetParamsModel;
 
-class GetAllFoodsEvent extends FoodsEvent {}
+  RefreshFoodsEvent({required this.foodsGetParamsModel});
+}
+
+class GetAllFoodsEvent extends FoodsEvent {
+  final FoodsGetParamsModel foodsGetParamsModel;
+
+  GetAllFoodsEvent({required this.foodsGetParamsModel});
+}
