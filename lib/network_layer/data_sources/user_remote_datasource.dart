@@ -45,13 +45,13 @@ class UserImplWithHttp extends UserRemoteDataSource {
   @override
   Future<UserResponseModel> updateLocation(LocationModel location, int userId) async {
     Map<String, dynamic> json = location.toJson();
-    Map<String, dynamic> response = await networkService.postOrUpdate(
+    Map<String, dynamic>? response = await networkService.postOrUpdate(
       type: RequestType.update,
       api: '${ApiConstants.usersEntity}/${ApiConstants.locationSubEntity}/${userId.toString()}',
       body: json,
     );
     if (response != null) {
-     debugPrint(response.toString());
+      debugPrint(response.toString());
       return UserResponseModel.fromJson(response);
     }
     throw ServerException();
@@ -61,6 +61,6 @@ class UserImplWithHttp extends UserRemoteDataSource {
   Future<UserResponseModel> login({required String phone, required String password}) async {
     Map<String, dynamic>? response = await networkService.postOrUpdate(
         api: '${ApiConstants.usersEntity}/${ApiConstants.loginSubEntity}', body: {'phone': phone, 'password': password});
-    return UserResponseModel.fromJson(response);
+    return UserResponseModel.fromJson(response!);
   }
 }

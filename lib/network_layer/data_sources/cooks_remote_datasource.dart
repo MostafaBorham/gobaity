@@ -17,8 +17,8 @@ class CooksImplWithHttp extends CooksRemoteDataSource {
   @override
   Future<CooksResponseModel> getCooks() async {
     try {
-      Map<String, dynamic> responseBody = await networkService.get(entity: ApiConstants.usersEntity);
-      CooksResponseModel cooksResponse = CooksResponseModel.fromJson(responseBody);
+      Map<String, dynamic>? responseBody = await networkService.get(api: ApiConstants.usersEntity);
+      CooksResponseModel cooksResponse = CooksResponseModel.fromJson(responseBody!);
       return cooksResponse;
     } on ServerException {
       throw ServerException();

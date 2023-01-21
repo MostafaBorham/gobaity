@@ -34,9 +34,9 @@ class SizeModel extends SizeEntity {
 
   Map<String, String> toMultiPart() {
     final Map<String, String> data = {};
-    data['sizeId'] = sizeId!.toString();
-    data['price'] = price!.toString();
-    data['sizeDescription'] = sizeDescription!;
+    data["sizeId"] = sizeId!.toString();
+    data["price"] = price!.toString();
+    data["sizeDescription"] = sizeDescription!;
     return data;
   }
 }
