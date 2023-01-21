@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:yallabaity/application/app_failures/app_errors.dart';
 import 'package:yallabaity/network_layer/models/data_models/user_model.dart';
-import 'package:yallabaity/presentation/manager/bloc_user/cubit_user.dart';
 import 'package:yallabaity/presentation/manager/cubit_errors/errors_manager_cubit.dart';
 import 'package:yallabaity/presentation/resources/colors_manager.dart';
 import 'package:yallabaity/presentation/resources/routes_manager.dart';
@@ -19,6 +18,7 @@ import 'package:yallabaity/presentation/widgets/custom_title.dart';
 import 'package:yallabaity/presentation/widgets/custom_button.dart';
 
 import '../../application/app_failures/app_errors.dart';
+import '../manager/cubit_user_manager/cubit_user.dart';
 
 class VerificationScreen extends StatelessWidget {
   static const String userInfo = 'user info';
