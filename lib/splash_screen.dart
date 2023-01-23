@@ -89,7 +89,7 @@ class SplashScreen extends StatelessWidget {
             Timer(
               const Duration(seconds: 4),
               () {
-                Navigator.of(context).pushReplacementNamed(Routes.addFoodRoute);
+                Navigator.of(context).pushReplacementNamed(Routes.homeRoute);
                 debugPrint('user is not registered');
               },
             );
@@ -98,7 +98,7 @@ class SplashScreen extends StatelessWidget {
             Timer(
               const Duration(seconds: 4),
               () {
-                Navigator.of(context).pushReplacementNamed(Routes.getStartedRoute);
+                Navigator.of(context).pushReplacementNamed(Routes.homeRoute);
                 debugPrint('user is logged in');
 
               },

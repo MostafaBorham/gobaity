@@ -109,32 +109,18 @@ class NetworkService {
     if (response.statusCode == ApiConstants.success) {
       String body = response.body;
       ResponseModel responseModel = ResponseModel.fromJson(body.fromStringToJson);
-      if (responseModel.state!) {
-        return body.fromStringToJson;
-      } else {
-        throw InvalidRequestException();
-      }
+      return body.fromStringToJson;
     } else {
       throw ServerException();
     }
   }
 
   Future<Map<String, dynamic>> get({
-    required String entity,
-    String? id,
+    required String api,
     Map<String, dynamic>? queryParams,
     AppLanguages language = AppLanguages.english,
   }) async {
-    Uri uri;
-    if (id != null && queryParams != null) {
-      uri = Uri.https(ApiConstants.baseUrl, '$entity/$id', queryParams);
-    } else if (id != null) {
-      uri = Uri.https(ApiConstants.baseUrl, '$entity/$id');
-    } else if (queryParams != null) {
-      uri = Uri.https(ApiConstants.baseUrl, entity, queryParams);
-    } else {
-      uri = Uri.https(ApiConstants.baseUrl, entity);
-    }
+    Uri  uri = Uri.https(ApiConstants.baseUrl, api, queryParams);
     Map<String, String> header = {
       'Content-Type': 'application/json',
       'charset': 'utf-8',
@@ -148,11 +134,7 @@ class NetworkService {
     if (response.statusCode == ApiConstants.success) {
       String body = response.body;
       ResponseModel responseModel = ResponseModel.fromJson(body.fromStringToJson);
-      if (responseModel.state!) {
-        return body.fromStringToJson;
-      } else {
-        throw InvalidRequestException();
-      }
+      return body.fromStringToJson;
     } else {
       throw ServerException();
     }

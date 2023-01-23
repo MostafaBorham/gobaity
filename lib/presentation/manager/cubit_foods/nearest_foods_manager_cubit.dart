@@ -12,66 +12,66 @@ import 'package:yallabaity/network_layer/models/data_models/food_model.dart';
 import 'package:yallabaity/network_layer/models/data_models/foods_get_params_model.dart';
 import 'package:yallabaity/network_layer/models/responses_model/foods_response_model.dart';
 
-part 'foods_manager_state.dart';
+part 'nearest_foods_manager_state.dart';
 
-class FoodsManagerCubit extends Cubit<FoodsManagerState> {
+class NearestFoodsManagerCubit extends Cubit<NearestFoodsManagerState> {
   final FoodsUseCases foodUseCases;
   List<FoodEntity> foods = [];
   int page = 0;
   FoodsGetParamsModel? foodGetParamsFromServer;
-  FoodsManagerCubit({required this.foodUseCases}) : super(FoodsManagerInitial());
+  NearestFoodsManagerCubit({required this.foodUseCases}) : super(NearestFoodsManagerInitial());
   getFoods({required FoodsGetParamsModel foodGetParams}) async {
-    emit(FoodsLoadingState());
+    emit(NearestFoodsLoadingState());
     foodGetParamsFromServer = foodGetParams;
     Either<Failure, FoodsResponseEntity> either = await foodUseCases.getAll(foodsGetParams: foodGetParams);
     emit(mapEventToState(either));
   }
 
   getFoodsRefresh() async {
-    emit(FoodsLoadingState());
+    emit(NearestFoodsLoadingState());
     foodGetParamsFromServer!.page = 0;
     Either<Failure, FoodsResponseEntity> either = await foodUseCases.getAll(foodsGetParams: foodGetParamsFromServer!);
     emit(mapEventToState(either));
   }
 
   getMoreFoods() async {
-    if (state is FoodsLoadedState) {
-      emit(LoadingMoreFoodsState(foods: foods));
+    if (state is NearestFoodsLoadedState) {
+      emit(NearestLoadingMoreFoodsState(foods: foods));
       foodGetParamsFromServer!.page = foodGetParamsFromServer!.page! + 1;
       Either<Failure, FoodsResponseEntity> either = await foodUseCases.getAll(foodsGetParams: foodGetParamsFromServer!);
-      either.fold((Failure failure) => emit(FoodsErrorState(message: mapFailureToMessage(failure))),
-          (FoodsResponseEntity foodsResponse) {
-        if (foodsResponse.data!.isEmpty) {
-          emit(AllFoodAreLoaded(foods: foods));
-        } else {
-          foods.addAll(foodsResponse.data!);
-          emit(FoodsLoadedState(foods: foods));
-        }
-      });
+      either.fold((Failure failure) => emit(NearestFoodsErrorState(message: mapFailureToMessage(failure))),
+              (FoodsResponseEntity foodsResponse) {
+            if (foodsResponse.data!.isEmpty) {
+              emit(NearestAllFoodAreLoaded(foods: foods));
+            } else {
+              foods.addAll(foodsResponse.data!);
+              emit(NearestFoodsLoadedState(foods: foods));
+            }
+          });
     }
   }
 
-  FoodsManagerState mapEventToState(
-    Either<Failure, FoodsResponseEntity> either,
-  ) {
-    FoodsManagerState? state;
-    either.fold((Failure failure) => state = FoodsErrorState(message: mapFailureToMessage(failure)),
-        (FoodsResponseEntity foodsResponse) {
-      foods = foodsResponse.data!;
-      return state = FoodsLoadedState(foods: foods);
-    });
+  NearestFoodsManagerState mapEventToState(
+      Either<Failure, FoodsResponseEntity> either,
+      ) {
+    NearestFoodsManagerState? state;
+    either.fold((Failure failure) => state = NearestFoodsErrorState(message: mapFailureToMessage(failure)),
+            (FoodsResponseEntity foodsResponse) {
+          foods = foodsResponse.data!;
+          return state = NearestFoodsLoadedState(foods: foods);
+        });
     return state!;
   }
 
   static getMoreFoodsEvent(BuildContext context) {
-    BlocProvider.of<FoodsManagerCubit>(context).getMoreFoods();
+    BlocProvider.of<NearestFoodsManagerCubit>(context).getMoreFoods();
   }
 
   static getFoodsEvent(BuildContext context, {required FoodsGetParamsModel foodGetParams}) {
-    BlocProvider.of<FoodsManagerCubit>(context).getFoods(foodGetParams: foodGetParams);
+    BlocProvider.of<NearestFoodsManagerCubit>(context).getFoods(foodGetParams: foodGetParams);
   }
 
   static getFoodsRefreshEvent(BuildContext context) {
-    BlocProvider.of<FoodsManagerCubit>(context).getFoodsRefresh();
+    BlocProvider.of<NearestFoodsManagerCubit>(context).getFoodsRefresh();
   }
 }

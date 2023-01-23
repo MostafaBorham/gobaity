@@ -68,7 +68,7 @@ class FoodRemoteWithHttp extends FoodsRemoteDataSource {
   Future<FoodsResponseModel> getAll({required FoodsGetParamsModel foodsGetParams}) async {
     try {
       Map<String, dynamic> foodsString =
-          await networkService.get(entity: ApiConstants.foodsEntity, queryParams: foodsGetParams.toJson());
+          await networkService.get(api: ApiConstants.foodsEntity, queryParams: foodsGetParams.toJson());
       FoodsResponseModel foodsResponse = FoodsResponseModel.fromJson(foodsString);
       return foodsResponse;
     } on ServerException {
@@ -95,7 +95,7 @@ class FoodRemoteWithHttp extends FoodsRemoteDataSource {
   @override
   Future<FoodViewAndOrderResponseModel> getFood(int id) async {
     try {
-      Map<String, dynamic> foodsString = await networkService.get(entity: ApiConstants.foodsEntity, id: id.toString());
+      Map<String, dynamic> foodsString = await networkService.get(api: "${ApiConstants.foodsEntity}/$id");
       FoodViewAndOrderResponseModel foodResponse = FoodViewAndOrderResponseModel.fromJson(foodsString);
       return foodResponse;
     } on ServerException {
@@ -109,7 +109,7 @@ class FoodRemoteWithHttp extends FoodsRemoteDataSource {
   Future<CookFoodsResponseModel> getCookFoods({required CookGetParamsModel cookGetParams}) async {
     try {
       Map<String, dynamic> cookFoodsString =
-          await networkService.get(entity: ApiConstants.providerEntity, queryParams: cookGetParams.toJson());
+          await networkService.get(api: ApiConstants.providerEntity, queryParams: cookGetParams.toJson());
       CookFoodsResponseModel cookFoodsResponse = CookFoodsResponseModel.fromJson(cookFoodsString);
       return cookFoodsResponse;
     } on ServerException {

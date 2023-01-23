@@ -44,4 +44,5 @@ class LocationManagerCubit extends Cubit<LocationManagerState> {
   }
   static getLocationEvent(context)=>BlocProvider.of<LocationManagerCubit>(context).getLocation();
   static gerPlaceNameEvent(context)=>BlocProvider.of<LocationManagerCubit>(context).getPlaceInfo();
+
 }

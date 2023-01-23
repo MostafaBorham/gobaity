@@ -2,6 +2,10 @@ enum AppErrors {
   noErrors,
   images,
   title,
+  street,
+  buildingName,
+  floor,
+  apartmentNumber,
   description,
   sizes,
   price,
@@ -18,6 +22,10 @@ enum AppErrors {
 
 const Map<AppErrors, String> appErrorMessages = {
   AppErrors.noErrors: '',
+  AppErrors.street: 'street is required',
+  AppErrors.buildingName: 'building Name is required',
+  AppErrors.floor: 'floor is required',
+  AppErrors.apartmentNumber: 'apartment Number is required',
   AppErrors.images: 'at least provide one image',
   AppErrors.title: 'title is required',
   AppErrors.description: 'description is required',

@@ -17,7 +17,7 @@ class AdsImplWithHttp extends AdsRemoteDataSource {
   @override
   Future<AdsResponseModel> getAds() async {
     try {
-      Map<String, dynamic> responseBody = await networkService.get(entity: ApiConstants.adsEntity);
+      Map<String, dynamic> responseBody = await networkService.get(api: ApiConstants.adsEntity);
       AdsResponseModel adsResponse = AdsResponseModel.fromJson(responseBody);
       return adsResponse;
     } on ServerException {

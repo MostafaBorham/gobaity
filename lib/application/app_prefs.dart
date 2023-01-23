@@ -6,8 +6,10 @@ class AppPrefs {
   final SharedPreferences preferences;
   AppPrefs({required this.preferences});
   static const String prefsUsersKey = 'CACHED_USERS';
+  static const String prefsUsersAddressKey = 'CACHED_USERS_ADDRESS';
   static const String prefsLoggedInKey = "IS_LOGGED_IN";
   static const String prefsGetStatedKey = "GET_STARTED";
+  static const String citiesKey = "cities";
   static const String prefsUserKey = "User id";
   Future<bool> get isUserLoggedIn async => preferences.getBool(prefsLoggedInKey) ?? false;
   Future<void> get setUserLoggedIn async => preferences.setBool(prefsLoggedInKey, true);

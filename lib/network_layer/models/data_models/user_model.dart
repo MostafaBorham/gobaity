@@ -121,6 +121,6 @@ class UserModel extends UserEntity {
     request.fields['password'] = password!;
     request.fields['phone'] = phone!;
   }
-  toEntity()=>this as UserEntity;
+  toEntity()=>this;
 }
 

@@ -64,6 +64,7 @@ class ClientLocationScreen extends StatelessWidget {
                         target: egyptLatLang,
                         zoom: 12,
                       ),
+
                     );
                   },
                 ),
