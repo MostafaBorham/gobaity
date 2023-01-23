@@ -43,6 +43,7 @@ class GoBaityApp extends StatelessWidget {
         BlocProvider(create: (context) => FoodSizesMangerCubit()),
         BlocProvider(create: (context) => di.getIt<UserCubit>()..getUser()),
         BlocProvider(create: (context) => di.getIt<FoodsManagerCubit>()..getFoods(foodGetParams: FoodsGetParamsModel())),
+        BlocProvider(create: (context) => di.getIt<CookFoodsManagerCubit>()),
         BlocProvider(create: (context) => di.getIt<FoodOperationManagerCubit>()),
         BlocProvider(create: (context) => di.getIt<CategoriesManagerCubit>()..getCategories()),
         BlocProvider(create: (context) => di.getIt<AdsManagerCubit>()..getAds()),

@@ -38,53 +38,61 @@ class ClientApplyScreen extends StatelessWidget {
           onBackBtnPressed: () {},
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            child: Column(//set widgets vertically
-              children: [
-                SizedBox(
-                  height: AppHeight.s31 * Constants.height,
-                ),
-                CustomTitle(text: AppStrings.createAccount),
-                SizedBox(
-                  height: AppHeight.s10*Constants.height,
-                ),
-                CustomRichText(
-                  text: AppStrings.alreadyHaveAccount,
-                  btnText: AppStrings.login,
-                  textBtnColor: ColorsManager.maximumPurple,
-                  onPressed: () {
-                    _onLoginButtonPressed(context);
-                  },
-                ),
-                SizedBox(
-                  height: AppHeight.s38 * Constants.height,
-                ),
-                Column(//set widgets vertically
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: AppWidth.s33 * Constants.width),
-                      child: _buildInputFormField(context),
-                    ),
-                    SizedBox(
-                      height: AppHeight.s27*Constants.height,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: AppWidth.s40 * Constants.width),
-                      child: Text(
-                        AppStrings.agreeSigningUp,
-                        textAlign: TextAlign.center,
-                        style: getMediumStyle(
-                            fontSize: 13,
-                            color: ColorsManager.eerieBlack),
+            child: TweenAnimationBuilder(
+              tween: Tween<Offset>(begin:Offset(Constants.zero, Constants.height),end: Offset(Constants.zero, Constants.height*AppHeight.s5)),
+              duration: Duration(milliseconds: Constants.dm2),
+              builder: (context,Offset value, child) {
+                return Transform.translate(offset: value,child: child,);
+              },
+              child: Column(
+                //set widgets vertically
+                children: [
+                  SizedBox(
+                    height: AppHeight.s31 * Constants.height,
+                  ),
+                  CustomTitle(text: AppStrings.createAccount),
+                  SizedBox(
+                    height: AppHeight.s10 * Constants.height,
+                  ),
+                  CustomRichText(
+                    text: AppStrings.alreadyHaveAccount,
+                    btnText: AppStrings.login,
+                    textBtnColor: ColorsManager.maximumPurple,
+                    onPressed: () {
+                      _onLoginButtonPressed(context);
+                    },
+                  ),
+                  SizedBox(
+                    height: AppHeight.s38 * Constants.height,
+                  ),
+                  Column(
+                    //set widgets vertically
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppWidth.s33 * Constants.width),
+                        child: _buildInputFormField(context),
                       ),
-                    ),
-                    SizedBox(
-                      height: AppHeight.s30 * Constants.height,
-                    )
-                  ],
-                ),
-              ],
+                      SizedBox(
+                        height: AppHeight.s27 * Constants.height,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppWidth.s40 * Constants.width),
+                        child: Text(
+                          AppStrings.agreeSigningUp,
+                          textAlign: TextAlign.center,
+                          style: getMediumStyle(
+                              fontSize: 13, color: ColorsManager.eerieBlack),
+                        ),
+                      ),
+                      SizedBox(
+                        height: AppHeight.s30 * Constants.height,
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

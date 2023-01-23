@@ -121,7 +121,7 @@ extension FoodViewAndOrderResponseEntityMapper on FoodViewAndOrderResponseEntity
 }
 
 extension CookGetParamsMapper on CookGetParamsEntity {
-  CookGetParamsModel fromEntityToModel() => CookGetParamsModel(providerId: providerId, order: order);
+  CookGetParamsModel fromEntityToModel() => CookGetParamsModel(providerId: providerId, order: order,foodName: foodName);
 }
 
 extension CookFoodsResponseMapper on CookFoodsResponseEntity {

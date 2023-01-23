@@ -23,7 +23,8 @@ class RegisteringUserFailedState extends UserState {
   const RegisteringUserFailedState({
     required this.message,
   });
-}class NewUserState extends UserState {}
+}
+class NewUserState extends UserState {}
 class AlreadyLoggedInState extends UserState {
   final UserModel user;
 
@@ -50,4 +51,19 @@ class UpdatingUserLocationFailed extends UserState {
   final String message;
 
   const UpdatingUserLocationFailed({required this.message});
+}
+///save address states
+class UserSavingAddressState extends UserState {}
+class UserSavedAddressState extends UserState {
+  final AddressResponseEntity addressResponseEntity;
+  const UserSavedAddressState({
+    required this.addressResponseEntity,
+  });
+}
+class UserFailedSaveAddressState extends UserState {
+  final String message;
+
+  const UserFailedSaveAddressState({
+    required this.message,
+  });
 }
