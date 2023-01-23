@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yallabaity/application/app_prefs.dart';
 import 'package:yallabaity/presentation/manager/cubit_user_manager/cubit_user.dart';
 import 'package:yallabaity/presentation/resources/assets_manager.dart';
 import 'package:yallabaity/presentation/resources/colors_manager.dart';
@@ -14,17 +13,15 @@ import 'package:yallabaity/presentation/resources/styles_manager.dart';
 import 'package:yallabaity/presentation/resources/values_manager.dart';
 import 'package:yallabaity/injection_container.dart' as di;
 
+import 'application/app_prefs_constants/app_prefs.dart';
+
 class SplashScreen extends StatelessWidget {
   SplashScreen({Key? key}) : super(key: key);
   AppPrefs appPrefs = di.getIt<AppPrefs>();
   /*  late AnimationController _translationAnimationController;
-
   late AnimationController _opacityAnimationController;
-
   late Animation<double> _translationAnimation;
-
   late Animation<double> opacityAnimation;
-
   _translationAnimationEffect() {
     _translationAnimationController.forward();
     _translationAnimationController.addListener(() {
@@ -37,7 +34,6 @@ class SplashScreen extends StatelessWidget {
       }
     });
   }
-
   _opacityAnimationEffect() {
     _opacityAnimationController.forward();
     _opacityAnimationController.addListener(() {
@@ -45,9 +41,7 @@ class SplashScreen extends StatelessWidget {
     });
     _opacityAnimationController.addStatusListener((AnimationStatus status) {
       if (AnimationStatus.completed == status) {
-
         Navigator.of(context).pushReplacementNamed(Routes.homeRoute);
-
       }
     });
   }*/
@@ -67,16 +61,15 @@ class SplashScreen extends StatelessWidget {
         parent: _opacityAnimationController, curve: Curves.linearToEaseOut));
     _translationAnimationEffect(); */ /*    goNext();
     super.initState();
-
   }*/
   getUser(BuildContext context){
-     UserCubit.getUserEvent(context);
+    UserCubit.getUserEvent(context);
   }
   @override
   Widget build(BuildContext context) {
 
     //getUser(context);
-   debugPrint('sppppppppppppppps');
+    debugPrint('sppppppppppppppps');
     Constants.height = MediaQuery.of(context).size.height;
     Constants.width = MediaQuery.of(context).size.width;
     Constants.margin = AppWidth.s23 * Constants.width;
@@ -84,16 +77,12 @@ class SplashScreen extends StatelessWidget {
       backgroundColor: ColorsManager.steelPink,
       body: BlocListener<UserCubit,UserState>(
         listener: (context, state) {
-         debugPrint(state.runtimeType.toString());
+          debugPrint(state.runtimeType.toString());
           if (state is AlreadyLoggedInState) {
             Timer(
               const Duration(seconds: 4),
-              () {
-<<<<<<< HEAD
-                Navigator.of(context).pushReplacementNamed(Routes.homeRoute);
-=======
-                Navigator.of(context).pushReplacementNamed(Routes.addFoodRoute);
->>>>>>> 2cedd6838cd36176603752d3a952f8e786a0aca5
+                  () {
+                Navigator.of(context).pushReplacementNamed(Routes.clientLocationRoute);
                 debugPrint('user is not registered');
               },
             );
@@ -101,7 +90,7 @@ class SplashScreen extends StatelessWidget {
           if (state is NewUserState) {
             Timer(
               const Duration(seconds: 4),
-              () {
+                  () {
                 Navigator.of(context).pushReplacementNamed(Routes.getStartedRoute);
                 debugPrint('user is logged in');
 

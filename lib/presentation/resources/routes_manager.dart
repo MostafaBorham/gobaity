@@ -109,7 +109,7 @@ class RouteGenerator {
       case Routes.cookProfileRoute:
         return pageFadeTransition(widget: CookProfileScreen(cook: null), routeSettings: routeSettings);
       case Routes.cookApplyRoute:
-        return pageFadeTransition(widget: const CookApplyScreen(), routeSettings: routeSettings);
+        return pageFadeTransition(widget: CookApplyScreen(), routeSettings: routeSettings);
       case Routes.providerOrdersRoute:
         return pageFadeTransition(widget: ProviderOrdersScreen(), routeSettings: routeSettings);
       case Routes.providerProfileRoute:

@@ -3,15 +3,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:yallabaity/application/app_api_constants/api_constants.dart';
 import 'package:yallabaity/application/extensions.dart';
 import 'package:yallabaity/application/app_failures/exception.dart';
+import 'package:yallabaity/network_layer/models/data_models/address_model.dart';
 import 'package:yallabaity/network_layer/models/data_models/location_model.dart';
 import 'package:yallabaity/network_layer/models/data_models/user_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:yallabaity/network_layer/models/responses_model/address_response_model.dart';
 import 'package:yallabaity/network_layer/models/responses_model/categories_response_model.dart';
 import 'package:yallabaity/network_layer/models/responses_model/user_response_model.dart';
 import 'package:yallabaity/network_layer/services/network_services.dart';
 
 abstract class UserRemoteDataSource {
   Future<UserResponseModel> register(UserModel user);
+  Future<AddressResponseModel> saveUserAddress(AddressModel address);
   Future<UserResponseModel> updateLocation(LocationModel location, int userId);
   Future<UserResponseModel> login({required String phone, required String password});
 }
@@ -62,5 +65,12 @@ class UserImplWithHttp extends UserRemoteDataSource {
     Map<String, dynamic>? response = await networkService.postOrUpdate(
         api: '${ApiConstants.usersEntity}/${ApiConstants.loginSubEntity}', body: {'phone': phone, 'password': password});
     return UserResponseModel.fromJson(response!);
+  }
+
+  @override
+  Future<AddressResponseModel> saveUserAddress(AddressModel address) async{
+    Map<String, dynamic>? response =
+        await networkService.postOrUpdate(api: '${ApiConstants.usersEntity}${address.userId}${ApiConstants.subUsersEntity}',body: address.toJson(),);
+    return AddressResponseModel.fromJson(response!);
   }
 }

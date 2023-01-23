@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:yallabaity/application/permissions.dart';
+import 'package:yallabaity/application/app_permissions/permissions.dart';
 
 part 'location_state.dart';
 

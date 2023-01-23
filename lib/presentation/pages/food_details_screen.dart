@@ -8,7 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:yallabaity/application/app_api_constants/api_constants.dart';
 import 'package:yallabaity/application/enums/app_messages.dart';
-import 'package:yallabaity/application/app_prefs.dart';
+import 'package:yallabaity/application/app_prefs_constants/app_prefs.dart';
 import 'package:yallabaity/domain/entities/requests_entites/food_entity.dart';
 import 'package:yallabaity/network_layer/models/data_models/cart_post_model.dart';
 import 'package:yallabaity/network_layer/models/data_models/food_model.dart';

@@ -388,7 +388,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
                 openBuilder: (BuildContext context, void Function({Object? returnValue}) action) {
-                  BlocProvider.of<FoodsManagerCubit>(context).getTopRatedCookFood(cookId: cooks[index].cookId!);//my work
+                //  BlocProvider.of<FoodsManagerCubit>(context).getTopRatedCookFood(cookId: cooks[index].cookId!);//my work
                   return CookProfileScreen(cook: cooks[index],);
                 },
               ),

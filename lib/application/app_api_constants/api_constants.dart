@@ -14,8 +14,11 @@ class ApiConstants {
   static const String likeEntity = 'like';
   static const String adsEntity = '/api/ads';
   static const String usersEntity = 'api/users';
+  static const String cititiesEntity = 'api/Governorates';
   static const String basketEntity = '/Baskets/Single';
   static const String providerEntity = '/api/Foods/Provider';
+  static const String subUsersEntity = '/UsersAddreses';
+
   static const String locationSubEntity = 'UpdateLatLng';
   static const String userCategoriesEntity = '/api/Categories/GetUsedByProvider';
 

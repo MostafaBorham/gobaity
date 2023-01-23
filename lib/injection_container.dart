@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yallabaity/application/app_prefs.dart';
+import 'package:yallabaity/application/app_prefs_constants/app_prefs.dart';
 import 'package:yallabaity/domain/repositories/ads_repo.dart';
 import 'package:yallabaity/domain/repositories/cart_repo.dart';
 import 'package:yallabaity/domain/repositories/categories_repo.dart';
@@ -47,6 +47,7 @@ import 'network_layer/data_sources/ads_local_datasource.dart';
 import 'network_layer/data_sources/ads_remote_datasource.dart';
 import 'network_layer/data_sources/cart_local_datasource.dart';
 import 'network_layer/data_sources/cart_remote_datasource.dart';
+import 'network_layer/data_sources/cities_remote_data_source.dart';
 import 'network_layer/data_sources/food_sizes_local_datasource.dart';
 import 'network_layer/repositories/cart_repo_impl.dart';
 import 'presentation/manager/cubit_ads_manager/cubit_ads_manager_cubit.dart';
@@ -118,6 +119,9 @@ Future<void> init() async {
   /*                                       cooks data sources                                            */
   getIt.registerLazySingleton<CartRemoteDataSource>(() => CartImplWithHttp(networkService: getIt()));
   getIt.registerLazySingleton<CartLocalDataSource>(() => CartImplWithPrefs(preferences: getIt()));
+  /*        cities data sources  */
+  getIt.registerLazySingleton<CitiesRemoteDataSource>(() => CitiesRemoteDataSourceImplWithHttp(networkService: getIt()));
+
   /********************* repos ******************************/
   /*                                       categories repo                                             */
   getIt.registerLazySingleton<CategoriesRepo>(
