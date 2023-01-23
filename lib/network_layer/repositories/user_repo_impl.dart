@@ -3,14 +3,18 @@ import 'package:yallabaity/application/types.dart';
 import 'package:yallabaity/application/app_failures/exception.dart';
 import 'package:yallabaity/application/app_failures/failures.dart';
 import 'package:yallabaity/application/network.dart';
+import 'package:yallabaity/domain/entities/requests_entites/address_entity.dart';
+import 'package:yallabaity/domain/entities/response_entities/address_response_entity.dart';
 
 import 'package:yallabaity/domain/entities/response_entities/categories_response_entity.dart';
 import 'package:yallabaity/domain/entities/response_entities/user_response_entity.dart';
 import 'package:yallabaity/domain/repositories/user_repo.dart';
 import 'package:yallabaity/network_layer/data_sources/user_local_datasource.dart';
 import 'package:yallabaity/network_layer/data_sources/user_remote_datasource.dart';
+import 'package:yallabaity/network_layer/models/data_models/address_model.dart';
 import 'package:yallabaity/network_layer/models/data_models/location_model.dart';
 import 'package:yallabaity/network_layer/models/data_models/user_model.dart';
+import 'package:yallabaity/network_layer/models/responses_model/address_response_model.dart';
 import 'package:yallabaity/network_layer/models/responses_model/user_response_model.dart';
 
 import '../../domain/entities/requests_entites/user_entity.dart';
@@ -33,6 +37,23 @@ class UserRepoImpl extends UserRepo {
         if (userResponseModel.state == true) {
           userLocalDataSource.cacheUser(userResponseModel.data);
           return Right(userResponseModel);
+        } else {
+          throw left(InvalidRequestFailure());
+        }
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    }
+    return Left(OfflineFailure());
+  }
+  @override
+  Future<Either<Failure, AddressResponseEntity>> saveUserAddress(AddressEntity address) async {
+    if (await networkStatus.isConnected) {
+      try {
+        AddressResponseModel addressResponseModel = await userRemoteDataSource.saveUserAddress(address.toModel());
+        if (addressResponseModel.state == true) {
+          userLocalDataSource.cacheUserAddress(addressResponseModel.data);
+          return Right(addressResponseModel);
         } else {
           throw left(InvalidRequestFailure());
         }

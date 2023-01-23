@@ -8,10 +8,6 @@ class FoodsLoadedState extends FoodsManagerState {
   final List<FoodEntity> foods;
   FoodsLoadedState({required this.foods});
 }
-class TopRatedCookFoodLoadedState extends FoodsManagerState {
-  final FoodEntity food;
-  TopRatedCookFoodLoadedState({required this.food});
-}
 class LoadingMoreFoodsState extends FoodsManagerState {
   final List<FoodEntity> foods;
   LoadingMoreFoodsState({required this.foods});

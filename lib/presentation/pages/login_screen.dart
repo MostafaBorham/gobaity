@@ -28,7 +28,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: ColorsManager.black,
       body: BlocProvider(
@@ -40,40 +39,51 @@ class LoginScreen extends StatelessWidget {
               onBackBtnPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Column(//set widgets vertically
-                children: [
-                  SizedBox(
-                    height: AppHeight.s31 * Constants.height,
-                  ),
-                  CustomTitle(text: AppStrings.login),
-                  SizedBox(
-                    height: AppHeight.s10 * Constants.height,
-                  ),
-                  CustomRichText(
-                    text: AppStrings.dontHaveAccount,
-                    btnText: AppStrings.register,
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(Routes.clientApplyRoute);
-                    },
-                  ),
-                  SizedBox(
-                    height: AppHeight.s38 * Constants.height,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: AppWidth.s33 * Constants.width),
-                    child: _buildInputFormField(context),
-                  ),
-                ],
+              child: TweenAnimationBuilder(
+                tween: Tween<Offset>(begin:Offset(Constants.zero, Constants.height),end: Offset(Constants.zero, Constants.height*AppHeight.s5)),
+                duration: Duration(milliseconds: Constants.dm2),
+                builder: (context,Offset value, child) {
+                  return Transform.translate(offset: value,child: child,);
+                },
+                child: Column(
+                  //set widgets vertically
+                  children: [
+                    SizedBox(
+                      height: AppHeight.s31 * Constants.height,
+                    ),
+                    CustomTitle(text: AppStrings.login),
+                    SizedBox(
+                      height: AppHeight.s10 * Constants.height,
+                    ),
+                    CustomRichText(
+                      text: AppStrings.dontHaveAccount,
+                      btnText: AppStrings.register,
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(Routes.clientApplyRoute);
+                      },
+                    ),
+                    SizedBox(
+                      height: AppHeight.s38 * Constants.height,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: AppWidth.s33 * Constants.width),
+                      child: _buildInputFormField(context),
+                    ),
+                  ],
+                ),
               ),
             ),
           )),
     );
   }
 
-  _buildInputFormField(BuildContext context) => BlocConsumer<ErrorsManagerCubit, ErrorsManagerState>(
+  _buildInputFormField(BuildContext context) =>
+      BlocConsumer<ErrorsManagerCubit, ErrorsManagerState>(
         builder: (context, state) => Form(
             key: formKey,
-            child: Column(//set widgets vertically
+            child: Column(
+              //set widgets vertically
               children: [
                 _buildPhoneWidget(context),
                 SizedBox(
@@ -92,62 +102,67 @@ class LoginScreen extends StatelessWidget {
                 SizedBox(
                   height: AppHeight.s8 * Constants.height,
                 ),
-                Padding(padding: EdgeInsets.symmetric(horizontal: Constants.margin), child: _buildLoginBtn(context))
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: Constants.margin),
+                    child: _buildLoginBtn(context))
               ],
             )),
         listener: (context, state) {},
       );
 
   _buildPasswordWidget(BuildContext context) => PasswordTextField(
-        text: AppStrings.createPassword,
-        showError: ErrorsManagerCubit.contains(context, AppErrors.password),
-        message: ErrorsManagerCubit.getErrorMessage(context, AppErrors.password),
-        validator: (text) {
-          if (text!.isEmpty || text.length < 8) {
-            ErrorsManagerCubit.addErrorType(context, AppErrors.password);
-          }
-          return null;
-        },
-        onSaved: (text) {
-          password = text;
-        },
-        onChanged: (text) {
-          if (ErrorsManagerCubit.contains(context, AppErrors.password)) {
-            ErrorsManagerCubit.removeError(context, AppErrors.password);
-          }
-        },
-      );
+    text: AppStrings.createPassword,
+    showError: ErrorsManagerCubit.contains(context, AppErrors.password),
+    message:
+    ErrorsManagerCubit.getErrorMessage(context, AppErrors.password),
+    validator: (text) {
+      if (text!.isEmpty || text.length < 8) {
+        ErrorsManagerCubit.addErrorType(context, AppErrors.password);
+      }
+      return null;
+    },
+    onSaved: (text) {
+      password = text;
+    },
+    onChanged: (text) {
+      if (ErrorsManagerCubit.contains(context, AppErrors.password)) {
+        ErrorsManagerCubit.removeError(context, AppErrors.password);
+      }
+    },
+  );
   _buildPhoneWidget(BuildContext context) => PhoneTextField(
-        showError: ErrorsManagerCubit.contains(context, AppErrors.phoneEmpty) ||
-            ErrorsManagerCubit.contains(context, AppErrors.phoneInvalid),
-        message: ErrorsManagerCubit.contains(context, AppErrors.phoneEmpty)
-            ? ErrorsManagerCubit.getErrorMessage(context, AppErrors.phoneEmpty)
-            : ErrorsManagerCubit.contains(context, AppErrors.phoneInvalid)
-                ? ErrorsManagerCubit.getErrorMessage(context, AppErrors.phoneInvalid)
-                : null,
-        validator: (text) {
-          if (text!.isEmpty) {
-            ErrorsManagerCubit.addErrorType(context, AppErrors.phoneEmpty);
-          } else if (text.length != 10) {
-            ErrorsManagerCubit.addErrorType(
-              context,
-              AppErrors.phoneInvalid,
-            );
-          }
-          return null;
-        },
-        onSaved: (text) {
-          phone = text;
-        },
-        onChanged: (text) {
-          if (ErrorsManagerCubit.contains(context, AppErrors.phoneEmpty)) {
-            ErrorsManagerCubit.removeError(context, AppErrors.phoneEmpty);
-          }
-          if (text.length == 10 && ErrorsManagerCubit.contains(context, AppErrors.phoneInvalid)) {
-            ErrorsManagerCubit.removeError(context, AppErrors.phoneInvalid);
-          }
-        },
-      );
+    showError: ErrorsManagerCubit.contains(context, AppErrors.phoneEmpty) ||
+        ErrorsManagerCubit.contains(context, AppErrors.phoneInvalid),
+    message: ErrorsManagerCubit.contains(context, AppErrors.phoneEmpty)
+        ? ErrorsManagerCubit.getErrorMessage(context, AppErrors.phoneEmpty)
+        : ErrorsManagerCubit.contains(context, AppErrors.phoneInvalid)
+        ? ErrorsManagerCubit.getErrorMessage(
+        context, AppErrors.phoneInvalid)
+        : null,
+    validator: (text) {
+      if (text!.isEmpty) {
+        ErrorsManagerCubit.addErrorType(context, AppErrors.phoneEmpty);
+      } else if (text.length != 10) {
+        ErrorsManagerCubit.addErrorType(
+          context,
+          AppErrors.phoneInvalid,
+        );
+      }
+      return null;
+    },
+    onSaved: (text) {
+      phone = text;
+    },
+    onChanged: (text) {
+      if (ErrorsManagerCubit.contains(context, AppErrors.phoneEmpty)) {
+        ErrorsManagerCubit.removeError(context, AppErrors.phoneEmpty);
+      }
+      if (text.length == 10 &&
+          ErrorsManagerCubit.contains(context, AppErrors.phoneInvalid)) {
+        ErrorsManagerCubit.removeError(context, AppErrors.phoneInvalid);
+      }
+    },
+  );
   _buildLoginBtn(BuildContext context) {
     return SizedBox(
       width: double.maxFinite,
@@ -155,7 +170,7 @@ class LoginScreen extends StatelessWidget {
         text: AppStrings.signIn,
         onPressed: () {
           formKey.currentState!.validate();
-         debugPrint(ErrorsManagerCubit.hasErrors(context).toString());
+          debugPrint(ErrorsManagerCubit.hasErrors(context).toString());
           if (!ErrorsManagerCubit.hasErrors(context)) {
             formKey.currentState!.save();
             Navigator.pushNamed(context, Routes.verificationRoute, arguments: {
