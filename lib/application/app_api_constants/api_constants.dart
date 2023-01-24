@@ -6,8 +6,10 @@ class ApiConstants {
   static const String googleApisUrl= 'maps.googleapis.com';
   static const String placesAutoCompleteEntity= 'maps/api/place/autocomplete/json';
   static const String googleApiKey= "AIzaSyBkg1Hg_DXQw2QoiQefKwBiYvqueqdmm30";
+  static const String subUsersEntity = '/UsersAddreses';
 
   static const String foodsEntity = '/api/foods';
+  static const String citiesEntity = '/api/Governorates';
   static const String loginSubEntity = 'Login';
   static const String categoriesEntity = '/api/categories';
   static const String sizesEntity = '/api/sizes';
